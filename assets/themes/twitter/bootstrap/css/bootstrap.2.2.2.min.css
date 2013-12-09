@@ -831,10 +831,13 @@ button.close{padding:0;cursor:pointer;background:transparent;border:0;-webkit-ap
     display: block;
     background-color: #ffffff;
     margin-top: 50px;
-    border-radius: 8px;
+    border-radius: 1px;
+    border-top: 1px dashed #c0c0c0;
+    /*
     box-shadow: 3px 3px 5px 6px #ccc;
     -moz-box-shadow: 3px 3px 5px 6px #ccc;
     -webkit-box-shadow: 3px 3px 5px 6px #ccc;
+    */
 }
 
 .customed_post .post_info{
