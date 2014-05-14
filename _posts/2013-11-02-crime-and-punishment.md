@@ -118,4 +118,4 @@ tags: [罪与罚, 名著, 评论]
 
 
 [1]: http://www.zhihu.com/question/21012475?q=%E4%BF%84%E7%BD%97%E6%96%AF%E4%BA%BA%E7%9A%84%E5%90%8D%E5%AD%97
-[character]: http://cizixs.u.qiniudn.com/books-zuiyufa
+[character]: http://cizixs.u.qiniudn.com/book-zuiyufa.jpg
