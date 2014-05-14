@@ -8,6 +8,7 @@ tags: [curl, http, linux]
 {% include JB/setup %}
 
 
+![curl](https://dl.dropboxusercontent.com/u/64067741/curl-libcurl.jpg)
 
 ## HTTP 脚本
 
