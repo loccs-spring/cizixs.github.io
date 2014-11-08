@@ -8,7 +8,7 @@ tags: [curl, http, linux]
 {% include JB/setup %}
 
 
-![curl](https://dl.dropboxusercontent.com/u/64067741/curl-libcurl.jpg)
+![curl](http://cdn.osxdaily.com/wp-content/uploads/2014/02/download-with-curl.png)
 
 ## HTTP 脚本
 

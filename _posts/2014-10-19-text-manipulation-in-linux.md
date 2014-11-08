@@ -7,7 +7,7 @@ tags: [text, sed, linux, bash]
 ---
 {% include JB/setup %}
 
-![KISS](http://img4.picbed.org/uploads/2014/10/KISS+2.jpg)
+![KISS](http://www.faqs.org/docs/artu/graphics/kiss.png)
 
 这篇文章记录了 Bash 中常用的文本处理的程序，但是并不对每个程序做很详细的解释，只是列出来一些实用的用法。算是读书笔记，也可以看做一个备忘。
 
