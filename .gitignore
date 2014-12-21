@@ -11,3 +11,7 @@ Thumbs.db
 
 *~
 *.pyc
+*.orig
+*.bak
+
+target/
