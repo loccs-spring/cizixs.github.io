@@ -185,13 +185,38 @@ socket 是客户端本地创建的套接字，`address` 是服务器的三元组
     
     如果函数调用失败，返回空指针 `NULL`。
     
+    
 2. 把 long 类型的 ip 转换为字符串类型
 
         #include <arpa/inet.h>
         
         char *inet_ntoa(struct in_addr);
+        
+        int inet_aton(const char *cp, struct in_addr *inp);
+        
+    上面的函数返回可用的 in_addr 结构体，需要你手动赋值。下面的函数把转换后的结构拷贝到 inp 指向的结构体里面，然后 inp 就可以直接使用了。
+        
+3. 把字符串类型的 ip 转换为 long 类型
 
-把一个因特网主机地址转换为一个点分四元组格式的字符串。
+        #include <arpa/inet.h>
+        
+        in_addr_t inet_addr(const char *ip);
+
+4. 把字符串转换成整数
+
+        int atoi(const char *nptr);
+        
+    这个可以把从键盘输入的端口号转换成可用的整数。
+    
+5.  getpeername：获取连在某个 socket 另一端的客户地址(ip 和 port)
+
+        int getpeername(int sockfd, struct sockaddr *addr, socklen_t *addrlen);
+        
+    返回的信息保存在 addr 结构体里。
+        
+
+
+
 
 ## 简单的 echo server
 有了上面的知识，我们就来写一个简单的 echo server。这个 server 的功能非常简单，它默认监听在本机的 54321 端口，接受 client 端连接，然后把客户端发送的数据加上时间戳发送回去。
