@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "basic socket programming with a example"
+title: "socket 编程基础知识"
 description: "how to write socket programs, first step."
 category: 程序技术
 tags: [socket,linux,tutorial,example]

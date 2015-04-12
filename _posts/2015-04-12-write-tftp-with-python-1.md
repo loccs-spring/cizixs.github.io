@@ -1,13 +1,12 @@
 ---
 layout: post
-title: "write tftp with python 1"
+title: "编写自己的 tftp 客户端（1）"
 description: "使用 python 实现自己的 tftp 协议"
 category: 程序技术
 tags: [python, tftp, socket]
 ---
 {% include JB/setup %}
 
-# 编写自己的 tftp 客户端（1）
 
 tftp 协议一般用来 PXE 协议中传输文件，因为协议内容比较简单，所以非常容易实现。关于 tftp 的详细信息，可以参考维基百科或者 RFC 1350。
 
