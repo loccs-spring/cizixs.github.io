@@ -7,7 +7,7 @@ tags: [python funny love]
 ---
 {% include JB/setup %}
 
-# love story in a python function
+
 
 ## 一直被拒型
 
@@ -128,6 +128,6 @@ tags: [python funny love]
             
 If u rd al abv, and udrstnd tm, chncs r u dnt hv a grl frnd.
 
-![](http://h.hiphotos.baidu.com/zhidao/wh%3D450%2C600/sign=b845f4700a46f21fc9615657c3144756/b219ebc4b74543a9eda940471e178a82b801148e.jpg)
+![](http://screenshots.softonic.cn/cn/scrn/3349000/3349664/image-02-700x393.jpg)
 
 
