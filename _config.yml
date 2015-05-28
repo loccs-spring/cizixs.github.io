@@ -5,7 +5,7 @@ locale: en_US
 description: Tech, Python, Reading, Life, And Love.
 logo: site-logo.png
 search: true
-url: http://localhost:4000
+url: http://cizixs.com
 
 # Jekyll configuration
 
