@@ -4,10 +4,10 @@
   url: /about/
 
 - title: Books
-  url: /articles/
+  url: /books/
 
-- title: Blog
-  url: /blog/
+- title: Blogs
+  url: /
 
 - title: Theme Setup
   url: /theme-setup/

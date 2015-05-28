@@ -2,7 +2,7 @@
 layout: post
 title: "谁在这个世界更重要？"
 excerpt: " 跟随陀翁去接近人性"
-categories: 读书评论
+categories: article
 tags: [罪与罚, 名著, 评论]
 comments: true
 share: true

@@ -2,7 +2,7 @@
 layout: post
 title: "Problems Working with Github+Jekyll"
 excerpt: " 使用 jekyll 建站的一些问题"
-categories: 程序技术
+categories: article
 tags: [error, learning, github pages, jekyll]
 comments: true
 share: true

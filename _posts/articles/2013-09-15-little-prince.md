@@ -2,7 +2,7 @@
 layout: post
 title: "小王子"
 excerpt: "成人的童话：小王子"
-categories: 读书评论
+categories: article
 tags: [小王子, 读书]
 comments: true
 share: true

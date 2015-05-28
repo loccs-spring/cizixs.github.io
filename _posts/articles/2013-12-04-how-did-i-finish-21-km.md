@@ -2,7 +2,7 @@
 layout: post
 title: "我是怎么跑完21km的?"
 excerpt: "跑完半马的碎碎念。"
-categories: 生活杂谈
+categories: article
 tags: [marathon, running, life]
 comments: true
 share: true

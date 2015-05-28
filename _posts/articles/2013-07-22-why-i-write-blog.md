@@ -2,7 +2,7 @@
 layout: post
 title: "Why I Write Blog?"
 excerpt: "Write Blog is way to put thought into words and record every phrase of your life."
-categories: 生活杂谈
+categories: article
 tags: [blog, me]
 comments: true
 share: true

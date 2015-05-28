@@ -2,7 +2,7 @@
 layout: post
 title: "程序员、黑客、自由即其他"
 excerpt: "解释程序员文化和自由精神"
-categories: 随笔感想
+categories: article
 tags: [essay, hacker, computer]
 comments: true
 share: true

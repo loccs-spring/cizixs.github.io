@@ -2,7 +2,7 @@
 layout: post
 title: "why evolution is true"
 excerpt: " 进化论是科学界撕逼主战场。"
-categories: 翻译文章
+categories: article
 tags: [进化论, 科学, quora, 翻译]
 comments: true
 share: true
