@@ -39,13 +39,13 @@ deb-src http://mirrors.163.com/ubuntu/ precise main restricted universe multiver
     + contrib: 软件本身免费，但依赖的软件包不免费。
     + non-free: 非自由软件
     + non-us: 非美国地区，可能有加密、专利等
-    
+
     而ubuntu的组件与之不同：main, restricted, universe, multiverse.
     + main： ubuntu支持的免费软件包
     + restricted： 不免费，但是正规支持的
     + universe：免费，但不是正规支持的
     + multiverse：不免费，不支持
-    
+
 
 ### 2. debian repository 目录结构
 
@@ -54,11 +54,11 @@ deb-src http://mirrors.163.com/ubuntu/ precise main restricted universe multiver
 ![repo file tree](http://cizixs.u.qiniudn.com/ARCHIVE_tree.jpg)
 
 > **NOTE**：
-> 
+>
 > 1. 所有的兄弟文件夹（父目录相同的文件夹）都只展开第一个
-> 
+>
 > 2. Pool文件夹的四个子文件夹里，存放的是按照字母顺序分类的各个软件包
-> 
+>
 > 3. 每个repo的文件夹会有出入，实际以你使用的为准
 
 ### 重要的文件(夹)和解释
@@ -66,9 +66,9 @@ deb-src http://mirrors.163.com/ubuntu/ precise main restricted universe multiver
 + 根目录下至少有两个文件夹：`dists`和`pool`。`dists`文件夹里存储的是关于软件包的信息数据，包括：文件名称、大小、位置、校验码等。而`pool`文件下是具体的软件包存放位置，单独把文件放在`pool`文件夹里是为了防止文件的重复。
 
 + Release/InReleas
-    
+
     文件位于`$ARVHIVE_ROOT/dists/$DISCTRIBUTION` 文件夹内，InRelease文件是内部自认证的，而`Release`文件需要伴随`Release.gpg`文件出现。这个文件包含该发布版（所在的文件夹）的索引文件和对应的hash。内部所列文件的位置是相对该文件的。比如上面的的source.list内容，为了获取main组件，apt会扫描`http://mirrors.163.com/ubuntu/dists/precise/Release`文件得到`main/binary-amd64/Packages.gz`组合成最终的地址`http://mirrors.163.com/ubuntu/dists/precise/main/binary-amd64/Packages.gz`。这里面就是precise发布版里main组件的所有软件索引。
-    
+
     以`binary-$arch`命名的文件夹里是二进制文件的目录，源文件的目录在`source`文件夹。
     Package列出的文件是相对于`$ARCHIVE_ROOT`的。
 
@@ -89,12 +89,12 @@ deb-src http://mirrors.163.com/ubuntu/ precise main restricted universe multiver
 + 可选项，这些提供了一些repo的基本信息
     + Description： 描述
     + Origin：repo的来源
-    + Label：标签说明 
+    + Label：标签说明
     + Suite： 套件，就是前面说的distribution
     + Codename： 发布的代号
 + 决定repo布局的选项
     + Components： 对应前面的组件
-    + Architectures：系统的架构 
+    + Architectures：系统的架构
 + 功能性的选项
     + Date：release文件的创建日期
     + Valid-Util：保质期
@@ -154,6 +154,7 @@ deb-src http://mirrors.163.com/ubuntu/ precise main restricted universe multiver
 
 ---------------
 ### 参考资料
+
 + [Debian Repository HOWTO ](https://www.debian.org/doc/manuals/repository-howto/repository-howto)
 + [Debian Repository Format](https://wiki.debian.org/RepositoryFormat)
 + [debian软件源source.list文件格式说明](http://www.cnblogs.com/beanmoon/p/3387652.html)
@@ -163,8 +164,8 @@ deb-src http://mirrors.163.com/ubuntu/ precise main restricted universe multiver
 + [ubuntu codename wiki](https://wiki.ubuntu.com/DevelopmentCodeNames)
 + [debian release](https://wiki.debian.org/DebianReleases)
 
- 
+
 
 > Written by [cizixs](cizixs.github.io/about) with [StackEdit](https://stackedit.io/).
-> 
+>
 > [帮助博主娶老婆](https://me.alipay.com/cizixs)
