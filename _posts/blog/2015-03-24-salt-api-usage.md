@@ -3,7 +3,7 @@ layout: post
 title: "salt api 配置和使用"
 excerpt: "本文主要介绍了 salt API 的配置和使用，以及 API 性能的简单测试"
 categories: 程序技术
-tags: [salt API]
+tags: [salt, API]
 comments: true
 share: true
 ---

@@ -3,12 +3,13 @@ layout: post
 title: "python metaclass 入门简介"
 excerpt: "metaclass 一直是 python 令人害怕的怪兽，希望这篇文章能稍微阐明一些东西，让它不那么神秘和恐怖。"
 categories: blog
-tags: [python, meatballs, class]
-comments:true
+tags: [python, metaclass, class]
+comments: true
 share: true
 ---
 
-## 弱类型也是类型
+## 动态类型也是类型
+
 python 是一种动态类型语言，换句话说每个变量可以在程序里任何地方改变它的类型。想要获取变量的类型信息，可以使用 `type`：
 
     >>> a = 2
