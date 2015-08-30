@@ -7,6 +7,7 @@ tags: [python, meatballs, class]
 comments:true
 share: true
 ---
+
 ## 弱类型也是类型
 python 是一种动态类型语言，换句话说每个变量可以在程序里任何地方改变它的类型。想要获取变量的类型信息，可以使用 `type`：
 

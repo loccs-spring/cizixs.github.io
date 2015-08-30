@@ -3,7 +3,7 @@ layout: post
 title: "tcpdump introduction"
 excerpt: "A basic usage introduction to tcpdump"
 categories:  程序技术
-tags: [tcpdump network tcp/ip]
+tags: [tcpdump, network, tcp/ip]
 comments: true
 share: true
 ---
