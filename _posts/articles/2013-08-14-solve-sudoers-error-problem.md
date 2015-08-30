@@ -24,6 +24,7 @@ it prints out the following error:
     sudo: unable to initialize policy plugin
 
 Yep, I have to edit 'sudoers' file, but it requires root privilege. There are 2 ways to perform as root:  
+
 + login as root -> but I don't know the password
 + using 'sudo' and become root for once -> sudo didn't work because of /etc/sudoers
 

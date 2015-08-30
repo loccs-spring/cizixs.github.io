@@ -13,6 +13,7 @@ share: true
 Regular Expression(Regex for simplicity) is a sequence of characters that forms a search pattern, mainly for use in pattern matching with string, or string matching.
 
 There is a very famous quote about regex by [Jamie Zawinski][regex quote]
+
 > Some people, when confronted with a problem, 
 > think “I know, I'll use regular expressions.”
 > Now they have two problems.
@@ -61,9 +62,11 @@ it tells you if what you want exists in the target string. For example, if you w
     "Did you vote for Obama?"   =~ /obama/  #=> false
 
 ### More flexible
-You might see the problem here. Only by typing the exact string, can you get the correct result. What if I don't care about the case of 
-all letters? What if I allow some mispelling like "Obema"? What if I want to find "Obama" or "Michelle"? etc.
-Where there is a probelm, there is a way. The hero here is '[]'(square bracket) and '|'. '[]' matches anything in it, while '|' repersents logic
+You might see the problem here. Only by typing the exact string, can you get the correct result. 
+What if I don't care about the case of all letters? 
+What if I allow some mispelling like "Obema"?
+What if I want to find "Obama" or "Michelle"? etc.
+Where there is a probelm, there is a way. The hero here is `[]`(square bracket) and `|`. `[]` matches anything in it, while `|` repersents logic
 OR.
 
     "Did you vote for Obama?"   =~ /[oO]b[ae]ma/                    #=> true
@@ -71,18 +74,18 @@ OR.
 
 Note:  
 
-* __One '[]' only matches one character in it.__
-* __'|' selects string before or after it, not character, which means /ab|cd/ doesn't match 'abd', only matches 'ab' or 'cd'__
+* __One `[]` only matches one character in it.__
+* __`\|` selects string before or after it, not character, which means /ab\|cd/ doesn`t match `abd`, only matches `ab` or `cd`__
 
 
 Now you may wonder: what if there are many options for a situation, like match a digit or a letter? Of course you can write down 
-all of them in a pair of '[]': [abcdefghijklmnopqrstuvwxyz] or [0123456789]. Write these down for once may still be okay, but frequently using them 
-is a nightmare. '[]' solves it before you know, the powerful '-' sign. [a-z] matches anything from 'a' to 'z' and [0-matches from 'to '9'.
+all of them in a pair of `[]`: `[abcdefghijklmnopqrstuvwxyz]` or `[0123456789]`. Write these down for once may still be okay, but frequently using them 
+is a nightmare. `[]` solves it before you know, the powerful `-` sign. [a-z] matches anything from `a` to `z` and `[0-9]` matches from `0` to `9`.
 
 Note:  
 
-* __'-' works in the ASCII table way,so [+-a] is also valid.__
-* __If you want to include '-' itself in '[]', just put it at the last position like [abc-].__ 
+* __`-` works in the ASCII table way,so [+-a] is also valid.__
+* __If you want to include `-` itself in `[]`, just put it at the last position like [abc-].__ 
 
 Is that enough? Of course NO! To match a phone number, we need to find a convenient way to repeat digit for certain times(depends on the length of phone number).
 As always, there is already a solution. Following examples will demonstrate what you need.
@@ -105,9 +108,9 @@ The follow table shows metacharacters and their meaning.
 
 Symbols in above table are called "metacharacters"  as mentioned before. They have have different
 "super power"s compared to normal characters. Here is a question: what if I just want to use the symbol itself
-instead of its special meaning? Don't worry, you can escape them with a backslash '\'. '\' has a super power to 
-disable others' "super power" including itself.(It must be hard living with such 'useless' super power.)
-That means /\\\\/ matches one '\' sign.
+instead of its special meaning? Don't worry, you can escape them with a backslash `\`. `\` has a super power to 
+disable others' `super power` including itself(It must be hard living with such 'useless' super power).
+That means /\\\\/ matches one `\` sign.
 
 Another thing to say about '[]' is it also disables abbove metacharacters' "super power"s. 
 That means [\*+?] matches '*' or '+' or '?'. 
@@ -122,7 +125,7 @@ That means [\*+?] matches '*' or '+' or '?'.
         abdefg  =~  /a(b|c)d/       #=> <abd>efg
         ababb   =~  /(ab)+/         +=> <abab>b
 
-    __Note:[ab]+ is diffferent from (ab)+_  _
+    __ Note: `[ab]+` is diffferent from `(ab)+` __
     '()' also selects and stores the value in between for late use, this post won't cover it.
 
 * shortcuts  
@@ -137,11 +140,12 @@ That means [\*+?] matches '*' or '+' or '?'.
 
 ### Interesting tricks
 * __one-line regex__
-	- [/ -~/](http://www.catonmat.net/blog/my-favorite-regex/)  matches all ASCII characters from the space to the tilde which are all printable characters!
-	- [\\^1?$|\\^(11+?)\1+$](http://coolshell.cn/articles/2704.html)magically matches all prime numbers.
+	- [`/ -~/`](http://www.catonmat.net/blog/my-favorite-regex/) matches all ASCII characters from the space to the tilde which are all printable characters!
+	- [`\\^1?$|\\^(11+?)\1+$`](http://coolshell.cn/articles/2704.html) magically matches all prime numbers.
 * __regex in practice__
   
 		email   =>		/\b[A-Z0-9._%-]+@[A-Z0-9.-]+\.[A-Z]{2,4}\b/
+
 		ip		=>		/^(([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])\.){3}([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])$/
 
 [regex table]: https://github.com/JackwuCode/jackwucode.github.com/raw/master/images/regex01.png "regex table"

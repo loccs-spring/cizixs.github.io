@@ -10,8 +10,6 @@ share: true
 
 ## tcpdump 命令使用简介
 
-
-
 ### 简单介绍
 
 tcpdump 是一款强大的网络抓包工具，运行在 linux 平台上。熟悉 tcpdump 的使用能够帮助你分析、调试网络数据。
@@ -51,34 +49,32 @@ tcpdump 的选项也很多，要想知道所有选项的话，请参考 `man tcp
 
 下面是抓取 ping 命令的请求和返回的两个报文，可以看到全部的数据。
 
-```
-➜  ~  sudo tcpdump -nnvXSs 0 -c2 icmp
-tcpdump: data link type PKTAP
-tcpdump: listening on pktap, link-type PKTAP (Packet Tap), capture size 65535 bytes
-
-22:58:16.781856 IP (tos 0x0, ttl 64, id 61452, offset 0, flags [none], proto ICMP (1), length 84)
-    192.168.1.106 > 192.168.1.1: ICMP echo request, id 65302, seq 0, length 64
-	0x0000:  0c72 2c28 b9ac 80e6 5019 4c38 0800 4500  .r,(....P.L8..E.
-	0x0010:  0054 f00c 0000 4001 06e1 c0a8 016a c0a8  .T....@......j..
-	0x0020:  0101 0800 72c9 ff16 0000 5500 5808 000b  ....r.....U.X...
-	0x0030:  ee08 0809 0a0b 0c0d 0e0f 1011 1213 1415  ................
-	0x0040:  1617 1819 1a1b 1c1d 1e1f 2021 2223 2425  ...........!"#$%
-	0x0050:  2627 2829 2a2b 2c2d 2e2f 3031 3233 3435  &'()*+,-./012345
-	0x0060:  3637                                     67
-22:58:17.674304 IP (tos 0x0, ttl 64, id 13972, offset 0, flags [none], proto ICMP (1), length 84)
-    192.168.1.1 > 192.168.1.106: ICMP echo reply, id 65302, seq 0, length 64
-	0x0000:  80e6 5019 4c38 0c72 2c28 b9ac 0800 4500  ..P.L8.r,(....E.
-	0x0010:  0054 3694 0000 4001 c059 c0a8 0101 c0a8  .T6...@..Y......
-	0x0020:  016a 0000 7ac9 ff16 0000 5500 5808 000b  .j..z.....U.X...
-	0x0030:  ee08 0809 0a0b 0c0d 0e0f 1011 1213 1415  ................
-	0x0040:  1617 1819 1a1b 1c1d 1e1f 2021 2223 2425  ...........!"#$%
-	0x0050:  2627 2829 2a2b 2c2d 2e2f 3031 3233 3435  &'()*+,-./012345
-	0x0060:  3637                                     67
-
-2 packets captured
-5875 packets received by filter
-0 packets dropped by kernel
-```
+    ➜  ~  sudo tcpdump -nnvXSs 0 -c2 icmp
+    tcpdump: data link type PKTAP
+    tcpdump: listening on pktap, link-type PKTAP (Packet Tap), capture size 65535 bytes
+    
+    22:58:16.781856 IP (tos 0x0, ttl 64, id 61452, offset 0, flags [none], proto ICMP (1), length 84)
+        192.168.1.106 > 192.168.1.1: ICMP echo request, id 65302, seq 0, length 64
+    	0x0000:  0c72 2c28 b9ac 80e6 5019 4c38 0800 4500  .r,(....P.L8..E.
+    	0x0010:  0054 f00c 0000 4001 06e1 c0a8 016a c0a8  .T....@......j..
+    	0x0020:  0101 0800 72c9 ff16 0000 5500 5808 000b  ....r.....U.X...
+    	0x0030:  ee08 0809 0a0b 0c0d 0e0f 1011 1213 1415  ................
+    	0x0040:  1617 1819 1a1b 1c1d 1e1f 2021 2223 2425  ...........!"#$%
+    	0x0050:  2627 2829 2a2b 2c2d 2e2f 3031 3233 3435  &'()*+,-./012345
+    	0x0060:  3637                                     67
+    22:58:17.674304 IP (tos 0x0, ttl 64, id 13972, offset 0, flags [none], proto ICMP (1), length 84)
+        192.168.1.1 > 192.168.1.106: ICMP echo reply, id 65302, seq 0, length 64
+    	0x0000:  80e6 5019 4c38 0c72 2c28 b9ac 0800 4500  ..P.L8.r,(....E.
+    	0x0010:  0054 3694 0000 4001 c059 c0a8 0101 c0a8  .T6...@..Y......
+    	0x0020:  016a 0000 7ac9 ff16 0000 5500 5808 000b  .j..z.....U.X...
+    	0x0030:  ee08 0809 0a0b 0c0d 0e0f 1011 1213 1415  ................
+    	0x0040:  1617 1819 1a1b 1c1d 1e1f 2021 2223 2425  ...........!"#$%
+    	0x0050:  2627 2829 2a2b 2c2d 2e2f 3031 3233 3435  &'()*+,-./012345
+    	0x0060:  3637                                     67
+    
+    2 packets captured
+    5875 packets received by filter
+    0 packets dropped by kernel
 
 ### 过滤器
 

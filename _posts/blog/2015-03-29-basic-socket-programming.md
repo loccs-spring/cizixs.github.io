@@ -17,6 +17,7 @@ share: true
 TL;DR
 
 ## 概念
+
 ### 什么是 socket
 计算机里面最令人烦的就是这些名词，它们都很抽象，而且解释起来就和没有解释差不多。socket 就是这样的一个概念，不过我还是要试着说明一下。
 
@@ -121,6 +122,7 @@ close    | 关闭连接
     {
         uint32_t s_addr; //32位整数
     };
+
 服务器端的 s_addr 是本机地址，可以用 `INADDR_ANY` 变量表示接受来自任何地址的连接，记得在使用之前把地址变量初始化为全 0。
 `sockaddr` 是通用的 socket 地址结构，`sockaddr_in` 是网络 socket 的结构，参数有一个类型转换的过程。
 
@@ -169,39 +171,39 @@ socket 是客户端本地创建的套接字，`address` 是服务器的三元组
 
     很多时候，我们只知道服务器的域名，并不知道 ip 地址。`gethostbyname` 函数就能完成这个功能，`netdb.h` 文件里有它的定义，它的原型是：
     
-        #include <netdb.h>
-        
-        struct hostent * gethostbyname(const char *name);
+            #include <netdb.h>
+            
+            struct hostent * gethostbyname(const char *name);
     
     参数 `name` 是诸如 `www.google.com` 的字符串，返回值是 `struct hostent` 结构体，用来存储得到的地址信息。
     
-        struct hostent
-        {
-          char *h_name;         /* Official name of host.  */
-          char **h_aliases;     /* Alias list.  */
-          int h_addrtype;       /* Host address type.  */
-          int h_length;         /* Length of address.  */
-          char **h_addr_list;       /* List of addresses from name server.  */
-        };
+            struct hostent
+            {
+              char *h_name;         /* Official name of host.  */
+              char **h_aliases;     /* Alias list.  */
+              int h_addrtype;       /* Host address type.  */
+              int h_length;         /* Length of address.  */
+              char **h_addr_list;       /* List of addresses from name server.  */
+            };
     
     如果函数调用失败，返回空指针 `NULL`。
     
     
 2. 把 long 类型的 ip 转换为字符串类型
 
-        #include <arpa/inet.h>
-        
-        char *inet_ntoa(struct in_addr);
-        
-        int inet_aton(const char *cp, struct in_addr *inp);
+            #include <arpa/inet.h>
+            
+            char *inet_ntoa(struct in_addr);
+            
+            int inet_aton(const char *cp, struct in_addr *inp);
         
     上面的函数返回可用的 in_addr 结构体，需要你手动赋值。下面的函数把转换后的结构拷贝到 inp 指向的结构体里面，然后 inp 就可以直接使用了。
         
 3. 把字符串类型的 ip 转换为 long 类型
 
-        #include <arpa/inet.h>
-        
-        in_addr_t inet_addr(const char *ip);
+            #include <arpa/inet.h>
+            
+            in_addr_t inet_addr(const char *ip);
 
 4. 把字符串转换成整数
 
@@ -215,9 +217,6 @@ socket 是客户端本地创建的套接字，`address` 是服务器的三元组
         
     返回的信息保存在 addr 结构体里。
         
-
-
-
 
 ## 简单的 echo server
 有了上面的知识，我们就来写一个简单的 echo server。这个 server 的功能非常简单，它默认监听在本机的 54321 端口，接受 client 端连接，然后把客户端发送的数据加上时间戳发送回去。

@@ -28,7 +28,6 @@ char str[] = "Hello,world!"
 ——————————————————————————————————————————————————————
 | h | e | l | l | o | , | w | o | r | l | d | ! | \0 |
 ——————————————————————————————————————————————————————
-
 ```
 
 注意到末尾的`\0`，这是C语言用来标识字符串结束位置的字段，这样在处理字符串的时候就能避免超出范围的操作。所以，字符串占用的长度是`strlrn + 1`。
@@ -99,206 +98,197 @@ char \*strsep(char \*\*s, const char \*ct) | 把字符串按照ct中的字符分
 ### strcpy： 拷贝字符串
 
 
-```
-char *strcpy(char *dest, const char *src){
-    char *temp = dest;
-
-    while((*dest++ = *src++) != '\0')
-    ;
-
-    return temp;
-}
-
-char *strncpy(char *dest, const char *src, size_t count){
-    char *tmp = dest;
-
-    while(count){
-        if((*tmp = *src) != 0)
-            src++;
-        tmp++;
-        count--;
+    char *strcpy(char *dest, const char *src){
+        char *temp = dest;
+    
+        while((*dest++ = *src++) != '\0')
+        ;
+    
+        return temp;
     }
-
-    return dest;
-}
-```
+    
+    char *strncpy(char *dest, const char *src, size_t count){
+        char *tmp = dest;
+    
+        while(count){
+            if((*tmp = *src) != 0)
+                src++;
+            tmp++;
+            count--;
+        }
+    
+        return dest;
+    }
 
 ### strcmp：比较字符串
 
 
-```
-int strcmp(const char *cs, const char *ct){
-    unsigned char c1, c2;
-
-    while(1){
-        c1 = *cs++;
-        c2 = *ct++;
-        if(c1 != c2)
-            return c1 < c2 ? -1 : 1;
-        if(!c1)
-            break;
+    int strcmp(const char *cs, const char *ct){
+        unsigned char c1, c2;
+    
+        while(1){
+            c1 = *cs++;
+            c2 = *ct++;
+            if(c1 != c2)
+                return c1 < c2 ? -1 : 1;
+            if(!c1)
+                break;
+        }
+    
+        return 0;
     }
 
-    return 0;
-}
 
-
-int strncmp(const char *cs, const char *ct, size_t count){
-    unsigned char c1, c2;
-
-    while(count){
-        c1 = *cs++;
-        c2 = *ct++;
-
-        if(c1 != c2)
-            return c1 < c2 ? -1 : 1;
-        if(!c1)
-            break;
-        count--;
+    int strncmp(const char *cs, const char *ct, size_t count){
+        unsigned char c1, c2;
+    
+        while(count){
+            c1 = *cs++;
+            c2 = *ct++;
+    
+            if(c1 != c2)
+                return c1 < c2 ? -1 : 1;
+            if(!c1)
+                break;
+            count--;
+        }
+    
+        return 0;
     }
-
-    return 0;
-}
-
-int strcasecmp(const char *cs, const char *ct){
-    int c1, c2;
-
-    do{
-        c1 = tolower(*cs++);
-        c2 = tolower(*ct++);
-    }while(c1 == c2 && c1 != '\0');
-
-    return c1 - c2;
-}
-```
+    
+    int strcasecmp(const char *cs, const char *ct){
+        int c1, c2;
+    
+        do{
+            c1 = tolower(*cs++);
+            c2 = tolower(*ct++);
+        }while(c1 == c2 && c1 != '\0');
+    
+        return c1 - c2;
+    }
 
 ### strcat：拼接字符串
 
-```
-char *strcat(char *dest, const char *src){
-    char *tmp = dest;
-
-    while(*dest)
-        dest++;
-    while((*dest++ = *src++) != '\0')
-    ;
-
-    return tmp;
-}
-
-char *strncat(char *dest, const char *src, size_t count){
-    char *tmp = dest;
-
-    while(count){
+    char *strcat(char *dest, const char *src){
+        char *tmp = dest;
+    
         while(*dest)
             dest++;
-        while((*dest++ = *src++) != '\0'){
-            if(--count == 0){
-                *dest = '\0';
-                break;
+        while((*dest++ = *src++) != '\0')
+        ;
+    
+        return tmp;
+    }
+    
+    char *strncat(char *dest, const char *src, size_t count){
+        char *tmp = dest;
+    
+        while(count){
+            while(*dest)
+                dest++;
+            while((*dest++ = *src++) != '\0'){
+                if(--count == 0){
+                    *dest = '\0';
+                    break;
+                }
             }
         }
-    }
-
-    return tmp;
- }
-```
+    
+        return tmp;
+     }
 
 
 ### strchr：查找字符串里的字符
 
-```
-char *strchr(const char *s , int c){
-    for( ; *s != (char)c; ++s)
-        if(*s == '\0')
-            return NULL;
-
-    return (char *)s;
-}
-
-char *strnchr(const char *s, size_t count, int c){
-    for(; count-- && *s ! = (char)c; ++s)
-        if(*s == '\0')
-            return NULL;
-
-    return (char *)s;
-}
-
-char *strrchr(const char *s, int c){
-    const char *p = s + strlen(s);
-    do{
-        if(*p == c)
-            return (char *)p;
-    }while(--p >= s);
-
-    return NULL;
-}
-```
+    char *strchr(const char *s , int c){
+        for( ; *s != (char)c; ++s)
+            if(*s == '\0')
+                return NULL;
+    
+        return (char *)s;
+    }
+    
+    char *strnchr(const char *s, size_t count, int c){
+        for(; count-- && *s ! = (char)c; ++s)
+            if(*s == '\0')
+                return NULL;
+    
+        return (char *)s;
+    }
+    
+    char *strrchr(const char *s, int c){
+        const char *p = s + strlen(s);
+        do{
+            if(*p == c)
+                return (char *)p;
+        }while(--p >= s);
+    
+        return NULL;
+    }
 
 ### strstr：查找字符串里的子字符串
-```
-char *strstr(const char* s1, const char *s2){
-    size_t l1, l2;
 
-    l2 = strlen(l2);
-
-    if(!l2)
-        return (char *)s1;
-
-    l1 = strlen(s1);
-    while(l1 > l2){
-        l1--;
-        if(!memcpmp(s1,s2,l2))
+    char *strstr(const char* s1, const char *s2){
+        size_t l1, l2;
+    
+        l2 = strlen(l2);
+    
+        if(!l2)
             return (char *)s1;
-        s1++;
+    
+        l1 = strlen(s1);
+        while(l1 > l2){
+            l1--;
+            if(!memcpmp(s1,s2,l2))
+                return (char *)s1;
+            s1++;
+        }
+    
+        return NULL;
     }
-
-    return NULL;
-}
-
-
-char *strnstr(const char *s1, const char *s2, size_t len){
-    size_t l2 = strlen(s2);
-
-    if(!l2)
-        return (char *) s1;
-
-    while(len > l2){
-        len--;
-        if(!memcmp(s1,s2,l2))
+    
+    
+    char *strnstr(const char *s1, const char *s2, size_t len){
+        size_t l2 = strlen(s2);
+    
+        if(!l2)
             return (char *) s1;
-        s1++;
+    
+        while(len > l2){
+            len--;
+            if(!memcmp(s1,s2,l2))
+                return (char *) s1;
+            s1++;
+        }
+    
+        return NULL;
+        }
     }
-
-    return NULL;
-    }
-}
-```
 
 ### space_handle：处理字符串里的空格
-```
-char *skip_spaces(const char *s){
-    while(isspace(*s)){
-        s++;
+
+    char *skip_spaces(const char *s){
+        while(isspace(*s)){
+            s++;
+        }
+    
+        return (char *)s;
+    }
+    
+    char *strim(char *s){
+        size_t size;
+        char *end;
+    
+        size = strlen(s);
+        if(!size)
+            return s;
+    
+        end = s + size - 1;
+        while(end >= s && isspace(*end))
+            end--;
+        *(end+1) = '\0';
+    
+        return skip_spaces(s);
     }
 
-    return (char *)s;
-}
-
-char *strim(char *s){
-    size_t size;
-    char *end;
-
-    size = strlen(s);
-    if(!size)
-        return s;
-
-    end = s + size - 1;
-    while(end >= s && isspace(*end))
-        end--;
-    *(end+1) = '\0';
-
-    return skip_spaces(s);
-}
-```
 > Written with [StackEdit](https://stackedit.io/).

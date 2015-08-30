@@ -9,18 +9,18 @@ share: true
 ---
 
 这篇文章介绍的是ubuntu系统的apt-get软件包的格式、管理，和其他系统可能会有出入。
+
 ### 1. debian sources list 格式
 
 sources.list是debian系统用来指定软件源的文件，它的基本格式为：
+
 > deb uri distribution [component1] [component2] [...]
 
 我们使用国内的[163源](http://mirrors.163.com/)来说明每一行的具体含义
 下面是来自[163源ubuntu帮助页面](http://mirrors.163.com/.help/ubuntu.html)的条目：
 
-```
-deb http://mirrors.163.com/ubuntu/ precise main restricted universe multiverse
-deb-src http://mirrors.163.com/ubuntu/ precise main restricted universe multiverse
-```
+    deb http://mirrors.163.com/ubuntu/ precise main restricted universe multiverse
+    deb-src http://mirrors.163.com/ubuntu/ precise main restricted universe multiverse
 
 1. deb： deb指明二进制包的位置，deb-src则是源码包。
     每个档案可以有deb或者deb-src，或者兼而有之，但是两者必须分开声明。
@@ -152,7 +152,6 @@ deb-src http://mirrors.163.com/ubuntu/ precise main restricted universe multiver
 5. 更新一下：`sudo apt-get update`。
 
 
----------------
 ### 参考资料
 
 + [Debian Repository HOWTO ](https://www.debian.org/doc/manuals/repository-howto/repository-howto)

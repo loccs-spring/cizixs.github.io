@@ -10,11 +10,9 @@ share: true
 
 首次看到 python 的 decorator 的时候，感到非常新奇，也非常困惑。这个看起来很酷，在各种源码里经常出现的家伙到底是什么意思，怎么使用？
 
-```
-@myDecorator
-def aFunction():
-    print("inside a Function")
-```
+    @myDecorator
+    def aFunction():
+        print("inside a Function")
 
 这篇文章就解释一下自己的这个疑惑。
 
@@ -37,64 +35,48 @@ Decorator 就是这样一个函数：它接受一个函数作为参数，并返�
 
 下面是一个简单装饰器的定义：
 
-```
-def verbose(func):
-
-    def new_function(*args, **kwargs):
-        print("Entering")
-        func(*args, **kwargs)
-        print("Exiting ")
-
-    return new_function
-```
+    def verbose(func):
+    
+        def new_function(*args, **kwargs):
+            print("Entering")
+            func(*args, **kwargs)
+            print("Exiting ")
+    
+        return new_function
 
 它在执行原来的函数前和执行后，各打印一句话。那怎么使用这个装饰器呢？很简单，根据前面的定义，传给它一个函数就行。
 
 假如我们有一个 `hello world` 的函数：
 
-```
-def hello_world():
-    print("Hello,world!")
-```
+    def hello_world():
+        print("Hello,world!")
 
 那么执行下面的语句
 
-```
-v_hello_world = verbose(hello_world)
-
-```
+    v_hello_world = verbose(hello_world)
 
 我们就得到一个 v_hello_world 的变量，根据前面的定义，这个变量是一个函数。**需要注意的是，函数只有在遇到 `()` 符号的时候才会调用**。我们新得到的函数还没有被调用，也就是说接下来可以调用它，让它执行定义的内容。
 
-```
-v_hello_world()
-```
+    v_hello_world()
 
 这个时候会看到下面的输出：
 
-```
-Entering hello_world
-hello,world!
-Exiting hello_world
-
-```
+    Entering hello_world
+    hello,world!
+    Exiting hello_world
 
 其实可以不用引入新的变量，直接这样写：
 
-```
-hello_world = verbose(hello_world)
-```
+    hello_world = verbose(hello_world)
 
 这里 `verbose` 被称为装饰函数，它用来给原来的函数添加新的特性。
 
 ## @ 符号
 为了更好地使用上述的特性，`Python` 提供了 `@` 这个[语法糖](http://en.wikipedia.org/wiki/Syntactic_sugar)。这样的话，上面的例子就可以简写为：
 
-```
-@verbose
-def hello_world():
-    print("Hello,world!")
-```
+    @verbose
+    def hello_world():
+        print("Hello,world!")
 
 得到的就是被装饰后的函数。在刚开始不熟悉的时候，可以把装饰器还原成 `hello_world = verbose(hello_world)` 的形式，方便自己的理解。
 
@@ -104,75 +86,65 @@ def hello_world():
 ### 嵌套（chained）的 decorator
 事实上，decorator 是可以嵌套使用的，下面的代码来自 stackoverflow 的[这个答案](http://stackoverflow.com/questions/739654/how-can-i-make-a-chain-of-function-decorators-in-python/739665#739665)。
 
-```
-def makebold(fn):
-    def wrapped():
-        return "<b>" + fn() + "</b>"
-    return wrapped
-
-def makeitalic(fn):
-    def wrapped():
-        return "<i>" + fn() + "</i>"
-    return wrapped
-
-@makebold
-@makeitalic
-def hello():
-    return "hello world"
-
-print hello() ## returns <b><i>hello world</i></b>
-```
+    def makebold(fn):
+        def wrapped():
+            return "<b>" + fn() + "</b>"
+        return wrapped
+    
+    def makeitalic(fn):
+        def wrapped():
+            return "<i>" + fn() + "</i>"
+        return wrapped
+    
+    @makebold
+    @makeitalic
+    def hello():
+        return "hello world"
+    
+    print hello() ## returns <b><i>hello world</i></b>
 
 ### 带参数的 decorator
 除了可以嵌套使用之外，decorator 还能够带有参数。为了说明这个问题，假设有这样的场景：我们需要一个 decorator 把原来的函数执行多次。
 
 如果要执行的次数是固定的，比如 3 次，问题还是很容易解决：
 
-```
-def repeat3(func):
-    '''
-    execute original function three times
-    '''
-    def inner(*args, **kwargs):
-        func(*args, **kwargs)
-        func(*args, **kwargs)
-        func(*args, **kwargs)
-
-    return inner
-```
+    def repeat3(func):
+        '''
+        execute original function three times
+        '''
+        def inner(*args, **kwargs):
+            func(*args, **kwargs)
+            func(*args, **kwargs)
+            func(*args, **kwargs)
+    
+        return inner
 
 如果要执行的次数不确定呢？我们就需要一个额外的参数，最终的目的就是下面的代码能够把 `hello_world` 函数执行 3 遍：
 
-```
-@repeat(3)
-hello_world():
-    print("Hello,world!")
+    @repeat(3)
+    hello_world():
+        print("Hello,world!")
 
-```
 
 根据前面的定义，上面的代码等价于：
 
-```
-hello_world = repeat(3)(hello_world)
-```
+    hello_world = repeat(3)(hello_world)
 
 那么 `repeat(3)` 的结果必须是一个函数，才能在后面被传参调用。不仅如此， `repeat(3)` 的结果接受的参数还是函数，那它应该也是 decorator。也就是说，`repeat` 是一个函数，它的返回值也是函数，并且返回的函数的参数和返回值都是函数。好吧，我也是晕了！还是看个例子吧：
 
-```
-def repeat(n):
-    def repeatn(f):
-        def inner(*args, **kwargs):
-            for i in range(n):
-                f(*args, **kwargs)
-        return inner
-    return repeatn
-
-@repeat(5)
-def hello(name="world"):
-    print("Hello,%s" % name)
-
-hello()
-```
+    def repeat(n):
+        def repeatn(f):
+            def inner(*args, **kwargs):
+                for i in range(n):
+                    f(*args, **kwargs)
+            return inner
+        return repeatn
+    
+    @repeat(5)
+    def hello(name="world"):
+        print("Hello,%s" % name)
+    
+    hello()
 
 再解释一遍，`repeat` 接受 5 作为参数，并返回一个 decorator —— `repeatn`，`repeatn` 返回一个把原来的函数执行 n 遍的函数。
 
@@ -180,69 +152,67 @@ hello()
 
 写到这里，我们已经知道：装饰器就是把原来的函数记作 f1 添加一些特性，然后生成一个新的函数 f2。然后，我们就可以想使用原函数 f1 那样使用 f2，不用在意内部的细节。但是这两个函数真的是一样的吗？**答案是否定的**。我们来看一下例子：
 
-```
 定义一个简单的函数，
 
->>> def bar():
-...   ''' This is bar function document '''
-...   pass
+    >>> def bar():
+    ...   ''' This is bar function document '''
+    ...   pass
 
 查看 bar 函数的属性，
->>> bar.__name__, bar.__doc__, bar.__module__
-('bar', ' This is bar function document', '__main__')
+
+    >>> bar.__name__, bar.__doc__, bar.__module__
+    ('bar', ' This is bar function document', '__main__')
 
 使用 inspect 查看 bar 函数的参数定义，
->>> import inspect
->>> inspect.getargspec(bar)
-([], None, None, None)
 
->>> bar2=verbose(bar)
->>> bar2.__name__, bar2.__doc__, bar2.__module__
-('shown', None, '__main__')
+    >>> import inspect
+    >>> inspect.getargspec(bar)
+    ([], None, None, None)
 
->>> inspect.getargspec(bar2)
-([], 'args', 'kwargs', None)
+    >>> bar2=verbose(bar)
+    >>> bar2.__name__, bar2.__doc__, bar2.__module__
+    ('shown', None, '__main__')
+
+    >>> inspect.getargspec(bar2)
+    ([], 'args', 'kwargs', None)
 
 好了，不难理解，原函数 f1 的属性并没有传递到新的函数 f2。那么 f1 的属性就不能使用了，而我们对 f2 的属性根本就不感兴趣。那么直接一点的方法就是把 f1 的属性拷贝到 f2：
 
-
-def verbose(func):
-    def new_function(*args, **kwargs):
-        print("Entering")
-        func(*args, **kwargs)
-        print("Exiting ")
-
-
-    new_function.__name__ = func.__name__
-    new_function.__doc__ = func.__doc__
-    new_function.__module__ = func.__module__
-    new_function.__dict__.update(func.__dict__)
-
-    return new_function
-
-
->>> bar2=verbose(bar)
->>> bar2.__name__, bar2.__doc__, bar2.__module__
-('bar', ' This is bar function document ', '__main__')
+    def verbose(func):
+        def new_function(*args, **kwargs):
+            print("Entering")
+            func(*args, **kwargs)
+            print("Exiting ")
+    
+    
+        new_function.__name__ = func.__name__
+        new_function.__doc__ = func.__doc__
+        new_function.__module__ = func.__module__
+        new_function.__dict__.update(func.__dict__)
+    
+        return new_function
+    
+    
+    >>> bar2=verbose(bar)
+    >>> bar2.__name__, bar2.__doc__, bar2.__module__
+    ('bar', ' This is bar function document ', '__main__')
 
 Python2.5 以后的版本在 functools 提供了一个装饰器(没错，谁的问题谁负责)来解决 `wraps` 这个问题：
 
->>> from functools import wraps
-
->>> def verbose(f):
-...   @wraps(f)
-...   def new_function(*args, **kwargs):
-...     print("Entering")
-...     func(*args, **kwargs)
-...     print("Exiting ")
-...   return new_function
-
->>> bar2=verbose(bar)
->>> bar2.__name__, bar2.__doc__, bar2.__module__
-('bar', ' This is bar function document', '__main__')
-
-```
-
+    >>> from functools import wraps
+    
+    >>> def verbose(f):
+    ...   @wraps(f)
+    ...   def new_function(*args, **kwargs):
+    ...     print("Entering")
+    ...     func(*args, **kwargs)
+    ...     print("Exiting ")
+    ...   return new_function
+    
+    >>> bar2=verbose(bar)
+    >>> bar2.__name__, bar2.__doc__, bar2.__module__
+    ('bar', ' This is bar function document', '__main__')
+    
 ### 函数并不是唯一
 我们上面的文章一直在讲用函数实现的 decorator，其实函数并不是唯一的实现方式，利用类也能实现 decorator。让我们再次回到 decorator 的本质：
 

@@ -41,7 +41,6 @@ tftp 一共有五种报文：
 
 RRQ 和 WRQ 的格式如下所示，其中 Opcode 为 1 代表 RRQ，Opcode 为 2 代表 WRQ。
 
-```
             2 bytes     string    1 byte     string   1 byte
             ------------------------------------------------
            | Opcode |  Filename  |   0  |    Mode    |   0  |
@@ -49,7 +48,6 @@ RRQ 和 WRQ 的格式如下所示，其中 Opcode 为 1 代表 RRQ，Opcode 为 
 
                        RRQ/WRQ packet
 
-```
 
 其中文件名 filename 是不定长的字符串，后面有一个比特的 0 作为分隔符。mode 是 `netascii`、`octet` 或者 `mail` 之一，大小写不敏感（octet 和 OcTEt 都可以接受）。
 
@@ -61,27 +59,23 @@ RRQ 和 WRQ 的格式如下所示，其中 Opcode 为 1 代表 RRQ，Opcode 为 
 
 ### Data 报文
 
-```
                    2 bytes     2 bytes      n bytes
                    ----------------------------------
                   | Opcode |   Block #  |   Data     |
                    ----------------------------------
 
                         
-```
-
 上面是数据报文的格式，`Opcode` 是 3，`Block` 是数据报文的序号，因为只有 2 个字节，所以是 1-65535。当 `data block` 是 512 byte时，能接受的文件大小是 512 * 65536 = 32MB，不过后面的 tftp 修订允许 `data block` 达到 1468 byte（以太网 MTU（1500）- TFTP header（4） - UDP header （8）- IP header（20）），那么能够传输的大小是 1468 * 65535 = 93M。不过如果 tftp 实现循环利用序列号的话（65535 的下一个序号是 0），理论上可以传输的文件大小没有限制。
 
 当传输的 data 大小 `n < block size` 的时候，就表明传输已经结束了。
 
 ### ACK 报文
 
-```
                          2 bytes     2 bytes
                          ---------------------
                         | Opcode |   Block #  |
                          ---------------------
-```
+
 上面的 ACK 报文，`Opcode` 是 4， `Block` 应答的数据报序列号 ，WRQ 的 ACK 报文 Block 序列号是 0。
 
 所有的报文都会有 ACK 报文作为应答，除了
@@ -93,12 +87,10 @@ RRQ 和 WRQ 的格式如下所示，其中 Opcode 为 1 代表 RRQ，Opcode 为 
 
 ### 错误报文
 
-```
                2 bytes     2 bytes      string    1 byte
                -----------------------------------------
               | Opcode |  ErrorCode |   ErrMsg   |   0  |
                -----------------------------------------
-```
 
 错误报文的格式如上所示，Opcode 是 5，ErrorCode 是 错误代码，ErrMsg 是错误信息，结尾以一个比特的 0 作为分隔符。
 

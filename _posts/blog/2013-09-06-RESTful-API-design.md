@@ -41,8 +41,8 @@ share: true
 
 1. 明确地使用HTTP方法（Use HTTP methods explicitly）
 2. 无状态（Be stateless）
-3. 把URI组织成目录形式（Expose directory structure-like URIs）
-4. 采用XML和JSON传递数据（Transfer XML, JSON, or both）
+3. 把 URI 组织成目录形式（Expose directory structure-like URIs）
+4. 采用 XML 和 JSON 传递数据（Transfer XML, JSON, or both）
 
 其实第一条和第三条可以放在一起看，它解决了上面提到的URI混乱的情况，美感顿时而起。对于资源的四种操作，其实在HTTP中已经通过方法定义：GET/POST/PUT/DELETE。需要注意的是，这种对应不是一一对应。比如你可以使用GET方法来新建一个资源。
 
