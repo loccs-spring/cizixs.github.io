@@ -36,8 +36,7 @@ share: true
 客户端发出这样的请求，也要服务器端响应和支持这个功能。前面也提到过，这个实体头部是 HTTP 1.1 版本才添加的，所以有些 HTTP 服务端使用比较老的版本可能不支持。
 
 如果服务端支持的话，那么这个响应里也要带一个 `content-range` 的字段。比如客户端使用的是 `Range: bytes=1024-`，那么对应的服务端返回头部会包括类似 `content-range: bytes 1024-439714/439715` 的内容。这个意思就是说，我知道啦，我会从只传递 1024 - 439714 范围的内容，而整个文件的大小是 439715 字节。而且，这个时候响应的 status code 一定是 `206`，关于 `206` 的解释可以查看 [w3 官网上的说明。
-](http://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html)
-
+](http://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html)。
 如果真是这样也就皆大欢喜啦，但是可能出现两种异常情况：
 
 ### 不支持
@@ -58,6 +57,8 @@ share: true
 如果服务端比较严格，会检查你这次要下载的文件和上次下载的有没有变化，那么在第一次下载的时候，它一定会提供 `ETag` 或者 `Last-Modified` 两个字段中的至少一个。那么断点下载的请求，只要把任意一个放到 `If-Range` 字段里传过去就可以啦(`If-Range` 只能和 `Range` 一起使用，否则会被服务端忽略)。
 
 如果两次下载的是同一个文件，就会返回 206，从后开始续传；否则就会返回 200，表示文件变了，要重头开始下载。
+
+如果客户端发送的 range 范围有错误，会返回 416，并且 Content-Range 字段形如 `bytes */439715`，表示提供的范围有误，文件总大小是 `439715`。
 
 ## 实现
 
@@ -107,14 +108,14 @@ share: true
             # if it starts from where we requested.
             content_range = res.headers.get('content-range')
             # If file is already downloaded, it will reutrn `bytes */43968290`.
-            if '*' in content_range:
-                print("File download already complete.")
-                return
-    
+                
             if content_range and \
                     int(content_range.split(' ')[-1].split('-')[0]) == downloaded:
                 mode = 'a+'
-    
+        if res.status_code == 416:
+                print("File download already complete.")
+                return
+
         with open(filename, mode) as fd:
             for chunk in res.iter_content(chunk_size):
                 fd.write(chunk)
