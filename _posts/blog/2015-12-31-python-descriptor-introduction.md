@@ -30,26 +30,26 @@ python 的描述器是在 python 2.2 版本引入的一个特性，那么我们�
 举个简单的例子，我们来写个姓名属性的描述器：
 
     class NameProperty(object):
-    
+
         def __init__(self):
             self._name = ''
-    
+
         def __get__(self, instance, owner):
             print("Getting {}".format(self._name))
             print instance, owner
             return self._name
-    
+
         def __set__(self, instance, name):
             print("Setting {}".format(name))
             if not isinstance(name, string):
                 raise TypeError("name must be a string, but got {}".format(type(name))
             self._name = name.title()
-    
+
         def __del__(self, instance):
             print("Deleteing {}".format(self._name))
             del self._name
-    
-    
+
+
     class Person(object):
         name = NameProperty()
         age = 23
@@ -57,12 +57,12 @@ python 的描述器是在 python 2.2 版本引入的一个特性，那么我们�
 然后就可以调用这个类：
 
     In [23]: p = Person()
-    
+
     In [24]: p.name
     Getting
     <descriptor.Person object at 0x10f09a8d0> <class 'descriptor.Person'>
     Out[24]: ''
-    
+
     In [25]: p.name = 'cizixs'
     Setting cizixs
 
@@ -120,21 +120,21 @@ python 提供 property 来把自定义的方法变成属性的 getter 和 setter
 
 此外，还提供了装饰器来简化这个过程，比如上面的代码也可以写成：
 
-class C(object):
-    @property
-    def x(self): return self.__x
-    
-    @x.setter
-    def setx(self, value): self.__x = value
-    
-    @x.deleter
-    def delx(self): del self.__x
-  
+  class C(object):
+      @property
+      def x(self): return self.__x
+
+      @x.setter
+      def setx(self, value): self.__x = value
+
+      @x.deleter
+      def delx(self): del self.__x
+
   其实这很容易通过描述器实现，python descriptor HOWTO 官方教程中就给出了如下的代码：
-  
+
       class Property(object):
         "Emulate PyProperty_Type() in Objects/descrobject.c"
-    
+
         def __init__(self, fget=None, fset=None, fdel=None, doc=None):
             self.fget = fget
             self.fset = fset
@@ -142,30 +142,30 @@ class C(object):
             if doc is None and fget is not None:
                 doc = fget.__doc__
             self.__doc__ = doc
-    
+
         def __get__(self, obj, objtype=None):
             if obj is None:
                 return self
             if self.fget is None:
                 raise AttributeError("unreadable attribute")
             return self.fget(obj)
-    
+
         def __set__(self, obj, value):
             if self.fset is None:
                 raise AttributeError("can't set attribute")
             self.fset(obj, value)
-    
+
         def __delete__(self, obj):
             if self.fdel is None:
                 raise AttributeError("can't delete attribute")
             self.fdel(obj)
-    
+
         def getter(self, fget):
             return type(self)(fget, self.fset, self.fdel, self.__doc__)
-    
+
         def setter(self, fset):
             return type(self)(self.fget, fset, self.fdel, self.__doc__)
-    
+
         def deleter(self, fdel):
             return type(self)(self.fget, self.fset, fdel, self.__doc__)
 
@@ -177,16 +177,16 @@ class C(object):
     class Bar(object):
         def __init__(self, name):
             self.name = name
-        
+
         def pname(self):
             print self.name
 
     In [71]: Bar.__dict__['pname']
     Out[71]: <function __main__.pname>
-    
+
     In [72]: b.pname
     Out[72]: <bound method Bar.pname of <__main__.Bar object at 0x10f102550>>
-    
+
     In [73]: Bar.pname
     Out[73]: <unbound method Bar.pname>
 
@@ -212,20 +212,21 @@ class C(object):
 
     class StaticMethod(object):
      "Emulate PyStaticMethod_Type() in Objects/funcobject.c"
-    
-     def __init__(self, f):
-          self.f = f
-    
-     def __get__(self, obj, objtype=None):
-          return self.f
+
+       def __init__(self, f):
+            self.f = f
+
+       def __get__(self, obj, objtype=None):
+            return self.f
 
 classmethod 会把 owner 或者 type(instance) 传给原来的函数作为第一个参数 klass：
+
     class ClassMethod(object):
          "Emulate PyClassMethod_Type() in Objects/funcobject.c"
-    
+
          def __init__(self, f):
               self.f = f
-    
+
          def __get__(self, obj, klass=None):
               if klass is None:
                    klass = type(obj)
@@ -233,12 +234,31 @@ classmethod 会把 owner 或者 type(instance) 传给原来的函数作为第一
                    return self.f(klass, *args)
               return newfunc
 
+## 其他用法
+
+描述器另外一个比较常见的用法是某些属性的缓存：
+
+  class cached_property(object):
+      def __init__(self, func):
+          self.func = func
+
+      def __get__(self, obj, cls):
+          value = obj.__dict__[self.func.__name__] = self.func(obj)
+          return value
+
+使用起来也比较简单：
+
+  class Foo(object):
+
+    @cached_property
+    def hello(self):
+      return calculate_value()
+
+如果某个属性初始化的时候需要计算，比如上面的 `calculate_value`，这个描述器只有在第一次使用的时候去计算，
+然后把结果存到 `__dict__`（名字和方法名一样），下次再访问的时候，就会优先访问 `__dict__` 里面的值。
+
 
 ## 参考文档
 
 + [Descriptor HowTo Guide](https://docs.python.org/2/howto/descriptor.html)
 + [Classes and Objects II: Descriptors](http://intermediatepythonista.com/classes-and-objects-ii-descriptors)
-
-
-
-
