@@ -1,13 +1,13 @@
 ---
 layout: post
 title: "docker images 介绍"
-description: "docker 镜像是容器的基础，和镜像紧密相关的概念有 registry，UnionFS，container。深入了解 docker 中镜像的知识，对于更好地使用 docker 有着不可磨灭的作用。这篇文章，就围绕镜像有关的操作（下载、存储、运行、创建和删除等）展开，带你了解镜像的方方面面。"
-category: blog
+excerpt: "docker 镜像是容器的基础，和镜像紧密相关的概念有 registry，UnionFS，container。深入了解 docker 中镜像的知识，对于更好地使用 docker 有着不可磨灭的作用。这篇文章，就围绕镜像有关的操作（下载、存储、运行、创建和删除等）展开，带你了解镜像的方方面面。"
+categories: blog
 tags: [docker, images, registry, UnionFS, aufs, container, Dockerfile]
+comments: true
+share: true
 ---
-{% include JB/setup %}
 
-[TOC]
 
 这篇文章主要讲讲 docker 中镜像有关的知识，将涉及到下面几个方面：
 
