@@ -115,3 +115,41 @@ toolbox 在 mac 下的安装请参考[官方文档](https://docs.docker.com/engi
 嗯，熟悉的下载镜像和运行容器的输出！
 
 **NOTE: 当我们有多个 docker host 的时候，每次都要通过 `eval $(docker-machine env name)` 来切换。**
+
+## docker 网络模式
+
+### docker-machine 网络
+
+可以使用 `docker-machine config ` 命令查看 docker 主机的配置：
+
+    ➜  ~ dm config box
+    --tlsverify
+    --tlscacert="/Users/cizixs/.docker/machine/certs/ca.pem"
+    --tlscert="/Users/cizixs/.docker/machine/certs/cert.pem"
+    --tlskey="/Users/cizixs/.docker/machine/certs/key.pem"
+    -H=tcp://192.168.99.101:2376
+
+我们看最后一行，前面的 ip 就是主机的地址，也就是说我们的主机是监听在它所在地址的 2376 端口的。通过 `docker-machine ssh box` 进入到主机，可以查看它的网络信息：
+
+    docker@box:~$ ip addr
+    3: eth0: <BROADCAST,MULTICAST,UP,LOWER_UP> mtu 1500 qdisc pfifo_fast state UP group default qlen 1000
+        link/ether 08:00:27:a1:7a:a4 brd ff:ff:ff:ff:ff:ff
+        inet 10.0.2.15/24 brd 10.0.2.255 scope global eth0
+           valid_lft forever preferred_lft forever
+        inet6 fe80::a00:27ff:fea1:7aa4/64 scope link
+           valid_lft forever preferred_lft forever
+    4: eth1: <BROADCAST,MULTICAST,UP,LOWER_UP> mtu 1500 qdisc pfifo_fast state UP group default qlen 1000
+        link/ether 08:00:27:a5:3e:71 brd ff:ff:ff:ff:ff:ff
+        inet 192.168.99.101/24 brd 192.168.99.255 scope global eth1
+           valid_lft forever preferred_lft forever
+        inet6 fe80::a00:27ff:fea5:3e71/64 scope link
+           valid_lft forever preferred_lft forever
+
+我们看到 `eth1` 的地址就是 `192.168.99.101`，而上面的配置就是 `docker daemon` 运行的参数：
+
+    docker@box:~$ ps aux | grep docker | grep daemon
+    root      2618  0.0  3.8 431372 38948 ?        Sl   02:20   0:02 /usr/local/bin/docker daemon -D -g /var/lib/docker -H unix:// -H tcp://0.0.0.0:2376 --label provider=virtualbox --tlsverify --tlscacert=/var/lib/boot2docker/ca.pem --tlscert=/var/lib/boot2docker/server.pem --tlskey=/var/lib/boot2docker/server-key.pem -s aufs
+
+一个需要注意的的问题是：virtualbox 创建出来的虚拟机有两个网卡信息。`eth0` 是正常访问主机的网络接口，模式为 `NAT`；`eth1` 是和 docker 通信的网络接口，网络模式是 `Host-only Adapter`。
+
+到此，我们就搭建了自己的开发环境。
