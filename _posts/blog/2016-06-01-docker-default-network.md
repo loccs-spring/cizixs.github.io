@@ -12,13 +12,15 @@ share: true
 
 在默认情况下，docker 会在 host 机器上新创建一个 `docker0` 的 bridge：可以把它想象成一个虚拟的交换机，所有的容器都是连到这台交换机上面的。docker 会从私有网络中选择一段地址来管理容器，比如 `172.17.0.1/16`，这个地址根据你之前的网络情况而有所不同。
 
-![](http://www.linuxjournal.com/files/linuxjournal.com/ufiles/imagecache/large-550px-centered/u1002061/11833f1.png)
+![](http://developerblog.info/content/images/2015/11/docker-turtles-communication.jpg)
 
 > When Docker starts, it creates a virtual interface named docker0 on the host machine. It randomly chooses an address and subnet from the private range defined by RFC 1918 that are not in use on the host machine, and assigns it to docker0. Docker made the choice 172.17.42.1/16 when I started it a few minutes ago, for example — a 16-bit netmask providing 65,534 addresses for the host machine and its containers. The MAC address is generated using the IP address allocated to the container to avoid ARP collisions, using a range from 02:42:ac:11:00:00 to 02:42:ac:11:ff:ff.
 
 > -- Docker Official Document
 
 ### 容器是怎么连接到外面的网络的？
+
+![](http://www.linuxjournal.com/files/linuxjournal.com/ufiles/imagecache/large-550px-centered/u1002061/11833f1.png)
 
 启动一个容器，进到里面的 shell，可以发现：默认情况下，容器内部能够访问外网（当然你本身机器要联通外网）。这个是怎么做到的呢？
 
