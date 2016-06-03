@@ -35,26 +35,25 @@ share: true
 
 通过 `ip addr` 命令可以查看主机上面所有的网络接口：
 
-
-  root@swarm-node1:/home/docker# ip addr
-  1: lo: <LOOPBACK,UP,LOWER_UP> mtu 65536 qdisc noqueue state UNKNOWN group default qlen 1
-      link/loopback 00:00:00:00:00:00 brd 00:00:00:00:00:00
-      inet 127.0.0.1/8 scope host lo
-         valid_lft forever preferred_lft forever
-      inet6 ::1/128 scope host
-         valid_lft forever preferred_lft forever
-  3: eth0: <BROADCAST,MULTICAST,UP,LOWER_UP> mtu 1500 qdisc pfifo_fast state UP group default qlen 1000
-      link/ether 08:00:27:f5:13:b4 brd ff:ff:ff:ff:ff:ff
-      inet 10.0.2.15/24 brd 10.0.2.255 scope global eth0
-         valid_lft forever preferred_lft forever
-      inet6 fe80::a00:27ff:fef5:13b4/64 scope link
-         valid_lft forever preferred_lft forever
-  6: docker0: <BROADCAST,MULTICAST,UP,LOWER_UP> mtu 1500 qdisc noqueue state UP group default
-      link/ether 02:42:26:fd:f2:1f brd ff:ff:ff:ff:ff:ff
-      inet 172.17.0.1/16 scope global docker0
-         valid_lft forever preferred_lft forever
-      inet6 fe80::42:26ff:fefd:f21f/64 scope link
-         valid_lft forever preferred_lft forever
+    root@swarm-node1:/home/docker# ip addr
+    1: lo: <LOOPBACK,UP,LOWER_UP> mtu 65536 qdisc noqueue state UNKNOWN group default qlen 1
+        link/loopback 00:00:00:00:00:00 brd 00:00:00:00:00:00
+        inet 127.0.0.1/8 scope host lo
+           valid_lft forever preferred_lft forever
+        inet6 ::1/128 scope host
+           valid_lft forever preferred_lft forever
+    3: eth0: <BROADCAST,MULTICAST,UP,LOWER_UP> mtu 1500 qdisc pfifo_fast state UP group default qlen 1000
+        link/ether 08:00:27:f5:13:b4 brd ff:ff:ff:ff:ff:ff
+        inet 10.0.2.15/24 brd 10.0.2.255 scope global eth0
+           valid_lft forever preferred_lft forever
+        inet6 fe80::a00:27ff:fef5:13b4/64 scope link
+           valid_lft forever preferred_lft forever
+    6: docker0: <BROADCAST,MULTICAST,UP,LOWER_UP> mtu 1500 qdisc noqueue state UP group default
+        link/ether 02:42:26:fd:f2:1f brd ff:ff:ff:ff:ff:ff
+        inet 172.17.0.1/16 scope global docker0
+           valid_lft forever preferred_lft forever
+        inet6 fe80::42:26ff:fefd:f21f/64 scope link
+           valid_lft forever preferred_lft forever
 
  `docker0` 就是所有魔法的关键，粗糙地说，是它连接了容器和主机网络。下面的部分会一步步解开它的面纱！
 
