@@ -8,6 +8,22 @@ comments: true
 share: true
 ---
 
+## 简介
+
+这篇文章介绍我们启动容器的时候，默认情况下 docker 是怎么组织网络，保证容器是可以连通的。
+
+这里将不再介绍 docker 的基础使用，而是默认读者已经熟悉了 docker 各种命令行和概念，能创建、运行、查看容器。
+
+除此之外，还需要有一定的网络基础知识，包括但是不限于：
+
+- 二层网络和三层网络的区别和作用
+- ip 命令的使用
+- linux network namespace 的概念
+- virtual bridge 的概念
+- veth pair 的功能
+
+好，下面就让我们开始吧！
+
 ## docker 容器网络
 
 在默认情况下，docker 会在 host 机器上新创建一个 `docker0` 的 bridge：可以把它想象成一个虚拟的交换机，所有的容器都是连到这台交换机上面的。docker 会从私有网络中选择一段地址来管理容器，比如 `172.17.0.1/16`，这个地址根据你之前的网络情况而有所不同。
@@ -15,8 +31,32 @@ share: true
 ![](http://developerblog.info/content/images/2015/11/docker-turtles-communication.jpg)
 
 > When Docker starts, it creates a virtual interface named docker0 on the host machine. It randomly chooses an address and subnet from the private range defined by RFC 1918 that are not in use on the host machine, and assigns it to docker0. Docker made the choice 172.17.42.1/16 when I started it a few minutes ago, for example — a 16-bit netmask providing 65,534 addresses for the host machine and its containers. The MAC address is generated using the IP address allocated to the container to avoid ARP collisions, using a range from 02:42:ac:11:00:00 to 02:42:ac:11:ff:ff.
+-- Docker Official Document
 
-> -- Docker Official Document
+通过 `ip addr` 命令可以查看主机上面所有的网络接口：
+
+
+  root@swarm-node1:/home/docker# ip addr
+  1: lo: <LOOPBACK,UP,LOWER_UP> mtu 65536 qdisc noqueue state UNKNOWN group default qlen 1
+      link/loopback 00:00:00:00:00:00 brd 00:00:00:00:00:00
+      inet 127.0.0.1/8 scope host lo
+         valid_lft forever preferred_lft forever
+      inet6 ::1/128 scope host
+         valid_lft forever preferred_lft forever
+  3: eth0: <BROADCAST,MULTICAST,UP,LOWER_UP> mtu 1500 qdisc pfifo_fast state UP group default qlen 1000
+      link/ether 08:00:27:f5:13:b4 brd ff:ff:ff:ff:ff:ff
+      inet 10.0.2.15/24 brd 10.0.2.255 scope global eth0
+         valid_lft forever preferred_lft forever
+      inet6 fe80::a00:27ff:fef5:13b4/64 scope link
+         valid_lft forever preferred_lft forever
+  6: docker0: <BROADCAST,MULTICAST,UP,LOWER_UP> mtu 1500 qdisc noqueue state UP group default
+      link/ether 02:42:26:fd:f2:1f brd ff:ff:ff:ff:ff:ff
+      inet 172.17.0.1/16 scope global docker0
+         valid_lft forever preferred_lft forever
+      inet6 fe80::42:26ff:fefd:f21f/64 scope link
+         valid_lft forever preferred_lft forever
+
+ `docker0` 就是所有魔法的关键，粗糙地说，是它连接了容器和主机网络。下面的部分会一步步解开它的面纱！
 
 ### 容器是怎么连接到外面的网络的？
 
@@ -196,7 +236,8 @@ share: true
 
     172.17.0.0/16 dev docker0  proto kernel  scope link  src 172.17.0.1
 
-容器网络之间将通过 `docker0` 直接转发出去。    
+`docker0` 就是一台交换机，它记录了上面连接所有的容器 ip 和 mac 地址的对应关系。
+当发现报文是自己管理的网段时，`docker0` 直接把报文转发到对应 ip 连接的 vethXXX 接口，然后容器里的 eth0 就看到报文了。
 
 
 ## 参考资料
