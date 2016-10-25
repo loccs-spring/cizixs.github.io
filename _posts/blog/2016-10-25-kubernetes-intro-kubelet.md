@@ -224,6 +224,7 @@ container:db27cfa9f58f7b1047fb230da951453ca15e0961ca36ee7999ab3ed8ba5da814
 ```
 
 然后通过 busybox 容器查看访问日志：
+
 ```
 [root@localhost vagrant]# docker logs -f 6647
 172.17.0.1 - - [08/Sep/2016:03:29:47 +0000] "GET / HTTP/1.1" 200 867 "-" "curl/7.29.0"
@@ -237,6 +238,7 @@ container:db27cfa9f58f7b1047fb230da951453ca15e0961ca36ee7999ab3ed8ba5da814
 
 前面也提到了，kubelet 自身提供了几个 HTTP API 接口，供用户查看信息。
 最简单的就是 10248 的健康检查：
+
 ```
 [root@localhost vagrant]# curl http://127.0.0.1:10248/healthz
 ok
