@@ -12,21 +12,21 @@ share: true
 
 注意：这篇文章只讨论设计原则，不是强制要求（API 设计者可以根据实际情况实现部分内容，甚至实现出和某些原则相反的内容），也不会给出实现的思路和细节。
 
-## 使用 HTTPS
+## 1. 使用 HTTPS
 
 这个和 Restful API 本身没有很大的关系，但是对于增加网站的安全是非常重要的。特别如果你提供的是公开 API，用户的信息泄露或者被攻击会严重影响网站的信誉。
 
 NOTE：不要让非SSL的url访问重定向到SSL的url。
 
-## API 地址和版本
+## 2. API 地址和版本
 
 在 `url` 中指定 API 的版本是个很好地做法。如果 API 变化比较大，可以把  API 设计为子域名，比如 `https://api.github.com/v3`；也可以简单地把版本放在路径中，比如 `https://example.com/api/v1`。
 
-## schema
+## 3. schema
 
 对于响应返回的格式，JSON 因为它的可读性、紧凑性以及多种语言支持等优点，成为了 HTTP API 最常用的返回格式。因此，最好采用 JSON 作为返回内容的格式。如果用户需要其他格式，比如 `xml`，应该在请求头部 `Accept` 中指定。对于不支持的格式，服务端需要赶回正确的 status code，并给出详细的说明。
 
-## 以资源为中心的 URL 设计
+## 4. 以资源为中心的 URL 设计
 
 资源是 `Restful API` 的核心元素，所有的操作都是针对特定资源进行的。而资源就是 `URL`（Uniform Resoure Locator）表示的，所以简洁、清晰、结构化的 URL 设计是至关重要的。Github 可以说是这方面的典范，下面我们就拿 `repository` 来说明。
 
@@ -46,7 +46,7 @@ NOTE：不要让非SSL的url访问重定向到SSL的url。
 
 **NOTE**: 根据RFC3986定义，URL是大小写敏感的。所以为了避免歧义，尽量使用小写字母。
 
-## 使用正确的 Method
+## 5. 使用正确的 Method
 有了资源的 URL 设计，所有针对资源的操作都是使用 HTTP 方法指定的。比较常用的方法有：
 
 Verb        |       描述
@@ -91,7 +91,7 @@ NOTE：更新和创建操作应该返回最新的资源，来通知用户资源�
 
 另外一个例子是 `Fork`，这也是一个动作，但是在 gist 下面增加 `forks`资源，就能把动作变成 `CRUD` 兼容的：`POST /gists/:id/forks` 可以执行用户 fork 的动作。
 
-## Query 让查询更自由
+## 6. Query 让查询更自由
 
 比如查询某个 repo 下面 issues 的时候，可以通过以下参数来控制返回哪些结果：
 
@@ -102,7 +102,7 @@ NOTE：更新和创建操作应该返回最新的资源，来通知用户资源�
 - direction：排序的方向，升序（asc）还是降序（desc）
 - ……
 
-## 分页 Pagination
+## 7. 分页 Pagination
 
 当返回某个资源的列表时，如果要返回的数目特别多，比如 github 的 `/users`，就需要使用分页分批次按照需要来返回特定数量的结果。
 
@@ -113,7 +113,7 @@ NOTE：更新和创建操作应该返回最新的资源，来通知用户资源�
 
 返回的资源列表为 `[(page-1)*per_page, page*per_page)`。github API 文档中还提到一个很好的点，相关的分页信息还可以存放到 `Link` 头部，这样客户端可以直接得到诸如`下一页`、`最后一页`、`上一页`等内容的 url 地址，而不是自己手动去计算和拼接。
 
-## 选择合适的状态码
+## 8. 选择合适的状态码
 
 HTTP 应答中，需要带一个很重要的字段：`status code`。它说明了请求的大致情况，是否正常完成、需要进一步处理、出现了什么错误，对于客户端非常重要。状态码都是三位的整数，大概分成了几个区间：
 
@@ -146,7 +146,7 @@ HTTP 应答中，需要带一个很重要的字段：`status code`。它说明�
 
 上面这些状态码覆盖了 API 设计中大部分的情况，如果对某个状态码不清楚或者希望查看更完整的列表，可以参考 [HTTP Status Code](https://httpstatuses.com/) 这个网站，或者 [RFC7231 Response Status Codes](https://tools.ietf.org/html/rfc7231#section-6) 的内容。
 
-## 错误处理：给出详细的信息
+## 9. 错误处理：给出详细的信息
 
 如果出错的话，在 response body 中通过 `message` 给出明确的信息。
 
@@ -157,7 +157,7 @@ HTTP 应答中，需要带一个很重要的字段：`status code`。它说明�
 
 基本的思路就是尽可能提供更准确的错误信息：比如数据不是正确的 json，缺少必要的字段，字段的值不符合规定…… 而不是直接说“请求错误”之类的信息。
 
-## 验证和授权
+## 10. 验证和授权
 
 一般来说，让任何人随意访问公开的 API 是不好的做法。验证和授权是两件事情：
 
@@ -168,7 +168,7 @@ HTTP 应答中，需要带一个很重要的字段：`status code`。它说明�
 
 **NOTE**：Github API 对某些用户未被授权访问的资源操作返回 [**404 Not Found**](https://httpstatuses.com/404)，目的是为了防止私有资源的泄露（比如黑客可以自动化试探用户的私有资源，返回 403 的话，就等于告诉黑客用户有这些私有的资源）。
 
-## 限流 rate limit
+## 11. 限流 rate limit
 
 如果对访问的次数不加控制，很可能会造成 API 被滥用，甚至被 [DDos 攻击](https://en.wikipedia.org/wiki/Denial-of-service_attack)。根据使用者不同的身份对其进行限流，可以防止这些情况，减少服务器的压力。
 
@@ -184,13 +184,13 @@ HTTP 应答中，需要带一个很重要的字段：`status code`。它说明�
 
 Github 更进一步，提供了不影响当然 `RateLimit` 的请求查看当前 `RateLimit` 的接口 [**GET /rate_limit**](https://developer.github.com/v3/rate_limit/)。
 
-## Hypermedia API
+## 12. Hypermedia API
 
 Restful API 的设计最好遭到 Hypermedia：在返回结果中提供相关资源的链接。这种设计也被称为 [HATEOAS](http://en.wikipedia.org/wiki/HATEOAS)。这样做的好处是，用户可以根据返回结果就能得到后续操作需要访问的地址。
 
 比如访问 [api.github.com](https://api.github.com/)，就可以看到 Github API 支持的资源操作。
 
-## 编写优秀的文档
+## 13. 编写优秀的文档
 
 API 最终是给人使用的，不管是公司内部，还是公开的 API 都是一样。即使我们遵循了上面提到的所有规范，设计的 API 非常优雅，用户还是不知道怎么使用我们的 API。最后一步，但非常重要的一步是：为你的 API 编写优秀的文档。
 
