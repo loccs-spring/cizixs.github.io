@@ -36,19 +36,19 @@ owner:
   avatar: bio-photo.jpg
   email: wuwei4455@email.com
   disqus-shortname: cizixs
-  twitter: #cizixs
+  twitter: cizixs
   facebook: #username
-  github: #cizixs
-  stackexchange: #http://stackoverflow.com/users/1925083/cizixs
+  github: cizixs
+  stackexchange: http://stackoverflow.com/users/1925083/cizixs
   linkedin: #username
   instagram: #cizixs
   flickr: #username
   tumblr: #username
   pinterest: #username
-  weibo: #1921727853
+  weibo: 1921727853
   google:
     plus: #wei wu
-    analytics:
+    analytics: UA-42863699-1
     verify:
     ad-client:
     ad-slot:
