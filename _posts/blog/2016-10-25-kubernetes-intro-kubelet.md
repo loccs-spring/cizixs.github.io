@@ -203,6 +203,7 @@ container:db27cfa9f58f7b1047fb230da951453ca15e0961ca36ee7999ab3ed8ba5da814
 ```
 
 而 nginx 和 busybox 的配置信息中并没有 ip 地址，pause 容器中有：
+
 ```
 [root@localhost vagrant]# docker inspect -f '{{ .NetworkSettings.IPAddress}}' 6647
 
@@ -232,6 +233,7 @@ container:db27cfa9f58f7b1047fb230da951453ca15e0961ca36ee7999ab3ed8ba5da814
 172.17.0.1 - - [08/Sep/2016:03:50:18 +0000] "GET / HTTP/1.1" 200 867 "-" "curl/7.29.0"
 172.17.0.1 - - [08/Sep/2016:03:50:23 +0000] "GET / HTTP/1.1" 200 867 "-" "curl/7.29.0"
 ```
+
 随着请求的发送，可以看到日志都打印出来了。
 
 ### API 接口
@@ -243,6 +245,7 @@ container:db27cfa9f58f7b1047fb230da951453ca15e0961ca36ee7999ab3ed8ba5da814
 [root@localhost vagrant]# curl http://127.0.0.1:10248/healthz
 ok
 ```
+
 而 10255 端口比较重要，提供了 pod 和机器的信息：
 
 ```
@@ -338,7 +341,6 @@ Date: Thu, 08 Sep 2016 04:03:38 GMT
     "kind": "PodList",
     "metadata": {}
 }
-
 ```
 
 pods 列出了节点上运行的 pod 信息，包括里面有多少容器、pod 的状态、一些 metadata 等。 `/spec/` 路径返回节点的信息：

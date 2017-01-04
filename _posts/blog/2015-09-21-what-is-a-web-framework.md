@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "什么是 web 框架？"
+title: "【翻译】什么是 web 框架？"
 excerpt: "使用不同的 web 框架写了不少代码，深入了解一下 web 框架工作原理自然会有好处。"
 categories: blog
 tags: [python, web, framework]
@@ -60,7 +60,7 @@ Web 应用框架，简称为 `web 框架`，是编写 web 应用程序的基石�
 这个程序是这样的：
 
     import socket
-    
+
     HOST = ''
     PORT = 80
     listen_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
@@ -70,8 +70,8 @@ Web 应用框架，简称为 `web 框架`，是编写 web 应用程序的基石�
     request = connection.recv(1024)
     connection.sendall("""HTTP/1.1 200 OK
     Content-type: text/html
-    
-    
+
+
     <html>
         <body>
             <h1>Hello, World!</h1>
@@ -88,13 +88,13 @@ Web 应用框架，简称为 `web 框架`，是编写 web 应用程序的基石�
 如果看一下上面例子中发送的 `HTTP` 请求（译者注：可以使用 chrome 的 inspect elements -> Network，或者抓包工具 tcpdump 等工具查看发送的 HTTP 请求），就会发现它和应答很相似。请求的第一行是：
 
     <HTTP Method> <URL> <HTTP version>
-    
+
 在这个例子里就是 `GET / HTTP/1.1`。第一行后面跟着的是请求的头部（headers），比如 `Accept: */*`（表示可以接收任何格式的内容作为应答）。基本上就这么多。
 
 我们发送的应答也是类似的格式，第一行是:
 
     <HTTP version> <HTTP Status-Code> <Status-Code Reason-Phrase>
-    
+
 这个例子中就是 `HTTP/1.1 200 OK`。然后是头部，和请求的头部一样。最后是应答的实际内容。注意：应答也可能是字符串或者二进制对象，头部的 `Content-typ` 就是来标识应答内容，让客户端来解析的。
 
 #### web server 更多琐碎的细节
@@ -119,7 +119,7 @@ NOTE：客户端的框架和上面的内容迥然不同。
 
 每个 web 框架解决这两个问题的方法都不太相同，我们就举 Flask 和 Django 的例子来说明这个问题。首先，我们还要来说一下 `MVC` 模式。
 
-### Django 中的 MVC 
+### Django 中的 MVC
 
 Django 采用 MVC 模式， 所以要求使用这个框架的代码都遵循这个模式。*MVC*，是 *Model-View-Controller* 的缩写，用来分离应用的不同责任。数据库表所代表的资源用 *models* 来表示，*controllers* 负责应用的业务逻辑和操作 models。*Views* 则负责动态生成代表页面的 `HTML`。
 
@@ -140,7 +140,7 @@ Flask 采用的是另外一种方法。把 url 对应到函数参照的是 `rout
     @app.route('/users/<id:int>/')
     def display_user(id):
         # ...
-        
+
 如你所见，装饰器使用的是简化版的正则表达式来传递参数，参数被 route 参数中 `<name:type>` 的指令捕获。要路由 `/info/about.html` 这样的页面，就需要 `@app.route('/info/about_us.html')`。
 
 ### 根据模板生成 HTML
