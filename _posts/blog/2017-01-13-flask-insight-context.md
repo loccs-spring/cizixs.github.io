@@ -1,9 +1,9 @@
 ---
 layout: post
-title: "pxe 自动安装系统流程分析"
-excerpt: "批量服务器安装系统的时候要做到自动化，这样才能提高效率和实现标准化。pxe 是 intel 开发的技术，用来引导各种操作系统（linux、windows）的安装。"
+title: "flask 源码解析：上下文"
+excerpt: "使用过 flask 开发 web 应用的话，应该对 current_app, request, g, sessioin 这几个变量比较熟悉。它们保存了视图函数需要的请求和应用信息，这篇文章就讲解它们内部的实现机制。"
 categories: blog
-tags: [pxe linux boot dhcp]
+tags: [flask http web python]
 comments: true
 share: true
 ---
