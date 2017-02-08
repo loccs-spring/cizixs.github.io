@@ -8,6 +8,14 @@ comments: true
 share: true
 ---
 
+这是 flask 源码解析系列文章的其中一篇，本系列所有文章列表：
+
+- [flask 源码解析：简介](http://cizixs.com/2017/01/10/flask-insight-introduction)
+- [flask 源码解析：应用启动流程](http://cizixs.com/2017/01/11/flask-insight-start-process)
+- [flask 源码解析：路由](http://cizixs.com/2017/01/12/flask-insight-routing)
+- [flask 源码解析：上下文](http://cizixs.com/2017/01/13/flask-insight-context)
+
+
 ## 构建路由规则
 
 一个 web 应用不同的路径会有不同的处理函数，**路由就是根据请求的 URL 找到对应处理函数的过程。**
@@ -147,7 +155,7 @@ class RequestContext(object):
         self.request = request
         self.url_adapter = app.create_url_adapter(self.request)
         self.match_request()
-    
+
     def match_request(self):
         """Can be overridden by a subclass to hook into the matching
         of the request.
@@ -159,7 +167,7 @@ class RequestContext(object):
         except HTTPException as e:
             self.request.routing_exception = e
 
-            
+
 class Flask(_PackageBoundObject):
     def create_url_adapter(self, request):
         """Creates a URL adapter for the given request.  The URL adapter

@@ -8,7 +8,15 @@ comments: true
 share: true
 ---
 
-### 上下文（application context 和 request context）
+这是 flask 源码解析系列文章的其中一篇，本系列所有文章列表：
+
+- [flask 源码解析：简介](http://cizixs.com/2017/01/10/flask-insight-introduction)
+- [flask 源码解析：应用启动流程](http://cizixs.com/2017/01/11/flask-insight-start-process)
+- [flask 源码解析：路由](http://cizixs.com/2017/01/12/flask-insight-routing)
+- [flask 源码解析：上下文](http://cizixs.com/2017/01/13/flask-insight-context)
+
+
+## 上下文（application context 和 request context）
 
 上下文一直是计算机中难理解的概念，在[知乎的一个问题](https://www.zhihu.com/question/26387327)下面有个很通俗易懂的回答：
 
@@ -190,7 +198,7 @@ _request_ctx_stack = LocalStack()
 
 ```python
 class LocalProxy(object):
-    """Acts as a proxy for a werkzeug local.  
+    """Acts as a proxy for a werkzeug local.
     Forwards all operations to a proxied object. """
     __slots__ = ('__local', '__dict__', '__name__')
 
