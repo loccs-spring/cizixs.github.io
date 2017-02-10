@@ -52,6 +52,16 @@ net1
 exit
 ```
 
+**更新**：通过修改 bash 的前缀信息可以区分不同 shell，操作如下：
+
+```bash
+$ ip netns exec ns1 /bin/bash --rcfile <(echo "PS1=\"namespace ns1> \"")
+
+namespace ns1> ping www.google.com
+PING www.google.com (178.60.128.38) 56(84) bytes of data.
+64 bytes from cache.google.com (178.60.128.38): icmp_seq=1 ttl=58 time=17.6 ms
+```
+
 `ip netns exec` 后面跟着 namespace 的名字，比如这里的 `net1`，然后是要执行的命令，只要是合法的 shell 命令都能运行，比如上面的 `ip addr` 或者 `bash`。
 
 每个 namespace 在创建的时候会自动创建一个 `lo` 的 interface，它的作用和 linux 系统中默认看到的 `lo` 一样，都是为了实现 loopback 通信。如果希望 `lo` 能工作，不要忘记启用它：
