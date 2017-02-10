@@ -89,7 +89,7 @@ PING www.google.com (178.60.128.38) 56(84) bytes of data.
     link/ether fe:7e:75:4d:79:2e brd ff:ff:ff:ff:ff:ff
 ```
 
-**小知识**: 创建 veth pair 的时候可以自己指定它们的名字，比如 `ip link add vethfoo type veth peer name vethbar` 创建出来的两个名字就是 `vethfoo` 和 `vethbar` 。因为这里我们对名字没有特殊要求，所以就直接使用系统自动生成的名字。
+**小知识**: 创建 veth pair 的时候可以自己指定它们的名字，比如 `ip link add vethfoo type veth peer name vethbar` 创建出来的两个名字就是 `vethfoo` 和 `vethbar` 。因为这里我们对名字没有特殊要求，所以就直接使用系统自动生成的名字。如果 pair 的一端接口处于 DOWN 状态，另一端能自动检测到这个信息，并把自己的状态设置为 `NO-CARRIER`。
 
 创建结束之后，我们能看到名字为 `veth0` 和 `veth1` 两个网络接口，名字后面的数字是系统自动生成的。接下来，要做的是把这对 veth pair 分别放到已经两个 namespace 里面，这个可以使用 `ip link set DEV netns NAME` 来实现：
 
