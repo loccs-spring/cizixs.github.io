@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "flask 源码解析：请求和应答对象"
+title: "flask 源码解析：请求"
 excerpt: "网页应用开发最终也要落实到请求和应答上，客户端发送请求，服务端处理完之后，返回一个应答。任何 web 框架都要封装请求和应答供开发者使用，flask 也不例外。"
 categories: blog
 tags: [flask http web python]
@@ -14,7 +14,7 @@ share: true
 - [flask 源码解析：应用启动流程](http://cizixs.com/2017/01/11/flask-insight-start-process)
 - [flask 源码解析：路由](http://cizixs.com/2017/01/12/flask-insight-routing)
 - [flask 源码解析：上下文](http://cizixs.com/2017/01/13/flask-insight-context)
-
+- [flask 源码解析：请求](http://cizixs.com/2017/01/18/flask-insight-request)
 
 ## 简介
 
