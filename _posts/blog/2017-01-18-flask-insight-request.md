@@ -258,11 +258,6 @@ class AcceptMixin(object):
 它也是定义了很多 `@cached_property` 方法，虽然自己没有 `__init__` 方法，但是也直接使用了
 `self.environ`，因此它并不能直接使用，只能和 `BaseRequest` 一起出现。
 
-## 响应（Response）
-
-在 flask 应用中，我们只需要去编写 view 函数，好像并没有处理过
-
-
 ## 参考资料
 
 - [Flask official docs](http://flask.pocoo.org/docs/0.12/)
