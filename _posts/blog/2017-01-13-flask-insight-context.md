@@ -15,6 +15,7 @@ share: true
 - [flask 源码解析：路由](http://cizixs.com/2017/01/12/flask-insight-routing)
 - [flask 源码解析：上下文](http://cizixs.com/2017/01/13/flask-insight-context)
 - [flask 源码解析：请求](http://cizixs.com/2017/01/18/flask-insight-request)
+- [flask 源码解析：响应](http://cizixs.com/2017/01/22/flask-insight-response)
 
 ## 上下文（application context 和 request context）
 
