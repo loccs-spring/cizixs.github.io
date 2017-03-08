@@ -383,6 +383,39 @@ application = DispatcherMiddleware(frontend, {
 
 这个例子就是使用 `werkzeug` 的 `DispatcherMiddleware` 实现多个 app 的分发，这种情况下 `_app_ctx_stack` 栈里会出现两个 application context。
 
+## Update： 为什么要用 LocalProxy
+
+写完这篇文章之后，收到有位读者的疑问：为什么要使用 `LocalProxy`？不适用 `LocalProxy` 直接访问 `LocalStack` 的对象会有什么问题吗？
+
+这是个很好的问题，上面也确实没有很明确地给出这个答案。这里解释一下！
+
+首先明确一点，`Local` 和 `LocalStack` 实现了不同线程/协程之间的数据隔离。在为什么用 `LocalStack` 而不是直接使用 `Local` 的时候，我们说过这是因为 flask 希望在测试或者开发的时候，允许多 app 、多 request 的情况。而 `LocalProxy` 也是因为这个才引入进来的！
+
+我们拿 `current_app = LocalProxy(_find_app)`  来举例子。每次使用 `current_app` 的时候，他都会调用 `_find_app` 函数，然后对得到的变量进行操作。
+
+如果直接使用 `current_app = _find_app()` 有什么区别呢？区别就在于，我们导入进来之后，`current_app` 就不会再变化了。如果有多 app 的情况，就会出现错误，比如：
+
+```bash
+from flask import current_app
+
+app = create_app()
+admin_app = create_admin_app()
+
+def do_something():
+    with app.app_context():
+        work_on(current_app)
+        with admin_app.app_context():
+            work_on(current_app)
+```
+
+这里我们出现了嵌套的 app，每个 with 上下文都需要操作其对应的 `app`，如果不适用 `LocalProxy` 是做不到的。
+
+对于 `request` 也是类似！但是这种情况真的很少发生，有必要费这么大的功夫增加这么多复杂度吗？
+
+其实还有一个更大的问题，这个例子也可以看出来。比如我们知道 `current_app` 是动态的，因为它背后对应的栈会 push 和 pop 元素进去。那刚开始的时候，栈一定是空的，只有在 `with app.app_context()` 这句的时候，才把栈数据 push 进去。而如果不采用 `LocalProxy` 进行转发，那么在最上面导入 `from flask import current_app` 的时候，`current_app` 就是空的，因为这个时候还没有把数据 push 进去，后面调用的时候根本无法使用。
+
+所以为什么需要 `LocalProxy` 呢？简单总结一句话：因为上下文保存的数据是保存在栈里的，并且会动态发生变化。如果不是动态地去访问，会造成数据访问异常。
+
 ## 参考资料
 
 - [advanced flask patterns by Armin Ronacher](https://speakerdeck.com/mitsuhiko/advanced-flask-patterns)
