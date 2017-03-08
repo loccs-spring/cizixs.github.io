@@ -16,6 +16,7 @@ share: true
 - [flask 源码解析：上下文](http://cizixs.com/2017/01/13/flask-insight-context)
 - [flask 源码解析：请求](http://cizixs.com/2017/01/18/flask-insight-request)
 - [flask 源码解析：响应](http://cizixs.com/2017/01/22/flask-insight-response)
+- [flask 源码解析：session](http://cizixs.com/2017/03/08/flask-insight-session)
 
 ## 上下文（application context 和 request context）
 
