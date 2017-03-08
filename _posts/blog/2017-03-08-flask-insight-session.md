@@ -34,7 +34,7 @@ app.secret_key = 'please-generate-a-random-secret_key'
 @app.route("/")
 def index():
     if 'username' in session:
-        return 'hello, %s\n'.format(escape(session['username']))
+        return 'hello, {}\n'.format(escape(session['username']))
     return 'hello, stranger\n'
 
 
