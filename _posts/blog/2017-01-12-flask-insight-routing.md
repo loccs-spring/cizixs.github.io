@@ -148,7 +148,7 @@ def dispatch_request(self):
 
 我们可以先这样理解：`_request_ctx_stack.top.request` 保存着当前请求的信息，在每次请求过来的时候，`flask` 会把当前请求的信息保存进去，这样我们就能在整个请求处理过程中使用它。至于怎么做到并发情况下信息不会相互干扰错乱，我们将在下一篇文章介绍。
 
-`_request_ctx_stack` 中保存的是 `RequestContext` 对象，它出现在 `flask/globals.py` 文件中，和路由相关的逻辑如下：
+`_request_ctx_stack` 中保存的是 `RequestContext` 对象，它出现在 `flask/ctx.py` 文件中，和路由相关的逻辑如下：
 
 ```python
 class RequestContext(object):
