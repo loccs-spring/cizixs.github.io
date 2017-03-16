@@ -82,6 +82,7 @@ share: true
 - [Datadog Docker](https://www.datadoghq.com/blog/monitor-docker-datadog/)：能够收集 docker 的运行信息，并发送到 Datadog 进行分析
 - [NewRelic Docker](https://newrelic.com/partner/docker)：收集 docker 的运行信息，并发送到 NewRelic 进行分析
 - [Sysdig](https://sysdig.com/)：同时提供开源版本和企业版本，能够监控容器使用率和性能，并对性能就行分析
+- [logdns](https://logdns.com)：能够收集容器或者集群的日志，发送到 logdna 服务器端就行分析、设置告警等
 
 ## 网络
 
