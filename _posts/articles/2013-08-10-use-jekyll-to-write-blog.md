@@ -8,7 +8,8 @@ comments: true
 share: true
 ---
 
-##Quick Start
+## Quick Start
+
 Use jekyll to write posts is as easy as play Fruit Ninja, there is barely learning process.
 To create a new post:
 

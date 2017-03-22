@@ -8,17 +8,20 @@ comments: true
 share: true
 ---
 
-##Python Module
+## Python Module
+
 Python has a rich library which is clear, simple and easy-to-use.
 It covers all subjects you might think of, from text process to network parser, from email to UI.
 About python libraries and modules, you can refer to [python wiki](http://wiki.python.org/moin/UsefulModules), and [Python Module of the Module](http://pymotw.com/2/).
 
 ![python]
 
-##About ConfigParser
+## About ConfigParser
+
 ConfigParser is a relatively simple module, it involves standard read, write ,remove and  udpate functions.
 
-###What does it do?
+### What does it do?
+
 ConfigParser handles config file that stores useful and simple data for program to use when running.
 It follows certain format which makes it much simpler to read and write. A configfile might looks like:
 
@@ -39,7 +42,7 @@ After understading its content, you might get the idea of its function: stores d
 Like any kind of data, it provides **read**, **write**, **remove** and **update** methods along with **list values**, **check exists** etc.
 
 
-###Get Start
+### Get Start
 
     from ConfigParser import SafeConfigParser
     parser = SafeConfigParser()

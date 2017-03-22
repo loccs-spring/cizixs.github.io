@@ -2,7 +2,7 @@
 layout: post
 title: "RESTful API design"
 excerpt: "什么是 restful，怎么写 restful API？"
-categories: 程序技术 
+categories: 程序技术
 tags: [RESTful, API, basic]
 comments: true
 share: true
@@ -11,11 +11,11 @@ share: true
 
 这篇文章主要介绍RESTful的基本概念和设计时需要注意的事项。所有的内容仅针对刚接触RESTful的同学，其他人请移步。
 
-### RESTful, WTF? 
+### RESTful, WTF?
 如果你遇到问题会主动上网查找的话，你会在[wikipedia](http://en.wikipedia.org/wiki/Representational_state_transfer)上发现这样的定义：
 
     Representational state transfer (REST) is a style of software architecture for distributed systems such as the World Wide Web. REST has emerged as a predominant web API design model.
-    
+
 承认吧，你除了知道REST是什么的缩写之外，还是对它一无所知。这些都是再正确不过的废话，你会经常在中央新闻和课堂上听到。还好，你不是一个人这样想，[stackoverflow](http://stackoverflow.com/)上也有与此相关积分很高的[问题](http://stackoverflow.com/questions/671118/what-exactly-is-restful-programming)。那么本文就先用最直接的语言告诉你什么是RESTful。
 
 + REST提供访问网络资源的接口
@@ -25,7 +25,7 @@ share: true
 好吧，你还是不理解。先来名词解释：什么是资源？在互联网上一切都是资源，没错，一切你想访问的东西（数据）。知道你想要什么，还需要知道在哪里找到，这就是HTTP协议中url的用处，每个资源都是相对应的url来标识。既然HTTP已经完成工作了，为什么要有REST呢？答案很简单：因为HTTP做的不够好（更确切的说，大家使用HTTP的方式不对）！如果你经常上网的话，一定对下面这样冗长的url链接不会陌生（即使你没有去关注过）。
 
     http://newswatch.nationalgeographic.com/2013/09/05/masters-of-deception-5-two-faced-species/?utm_source=Twitter&utm_medium=Social&utm_content=link_tw20130905ngnw-twofac&utm_campaign=Content
-    
+
 对于资源，一般有固定的可用操作：读取，添加，修改和删除。网站设计者在处理如何提供资源接口给用户的时候，会用自己独特的方式，下面是可能出现的结果：
 
     /user_create
@@ -36,7 +36,8 @@ share: true
 不同的网站还会使用不同的命名，传递参数的方法也会很不相同，当有新的资源需要被操作的时候，管理起来很不方便，这样就造成了url的混乱和臃肿。RESTful就来拯救世界啦！
 
 
-###How RESTful is better?
+### How RESTful is better?
+
 先来看看RESTful的特点，这样就能更好地理解上面的内容：
 
 1. 明确地使用HTTP方法（Use HTTP methods explicitly）
@@ -47,7 +48,7 @@ share: true
 其实第一条和第三条可以放在一起看，它解决了上面提到的URI混乱的情况，美感顿时而起。对于资源的四种操作，其实在HTTP中已经通过方法定义：GET/POST/PUT/DELETE。需要注意的是，这种对应不是一一对应。比如你可以使用GET方法来新建一个资源。
 
     GET /adduser?name=jackwu HTTP=/1.1
-    
+
 GET只是一条请求，adduser指定具体的行为。
 明白了吧，HTTP的这种灵活性造成了这种混乱，除此之外还有上面提到的命名混乱，如下所示：
 
@@ -57,15 +58,16 @@ GET只是一条请求，adduser指定具体的行为。
     /add_user
     /create_user
 
-**RESTful的第一条原则就是：使用GET来读取资源，POST来新建资源，PUT来更新资源，DELETE来删除资源。**这样做，且只能这样做！（好吧，其实你可以不这样做，不过实现的东西就不是RESTful的。）
+**RESTful的第一条原则就是：使用GET来读取资源，POST来新建资源，PUT来更新资源，DELETE来删除资源。** 这样做，且只能这样做！（好吧，其实你可以不这样做，不过实现的东西就不是RESTful的。）
 有了第一条原则之后，操作资源的行为就变得整洁有美感。
 
     GET /users/jackwu
     GET /users
-    POST /users 
+    POST /users
     PUT /users/jackwu
     DELETE /users
     DELETE /users/jackwu
+
 只要在调用方法时传递正确的参数就可以了，简单吧！好像满足第三条原则了，真好。
 
 来看第二条，无状态。这当然是针对“有状态”而言的，那么什么是有状态呢？就是在客户端和服务器端通信的时候，服务器端要保存客户端的信息，比如要连续请求多个页面的时候要保存上次请求的是哪个页面，这样下次再有请求的时候，会在之前的基础上进行。
@@ -90,7 +92,8 @@ GET只是一条请求，adduser指定具体的行为。
 + 更小的延迟，更高的安全性
 
 
-###设计REST API需要考虑的东西
+### 设计REST API需要考虑的东西
+
 设计RESTful API一般分为两个步骤：深入理解用户需要哪些数据，都能执行何种操作；将这些功能在RESTful诸原则的指导下实现出来。
 
 ![client server]
@@ -104,7 +107,7 @@ API就是客户端和服务器端通信的中间人（翻译），设计优美�
 
 这些就不再这里说啦！
 
-###参考资料
+### 参考资料
 1. [Thoughts on RESTful API Design](https://restful-api-design.readthedocs.org/en/latest/index.html)
 2. [Wikipedia definition](http://en.wikipedia.org/wiki/Representational_state_transfer)
 3. [Stackoverflow Question: What exactly is RESTful programming?](http://stackoverflow.com/questions/671118/what-exactly-is-restful-programming)

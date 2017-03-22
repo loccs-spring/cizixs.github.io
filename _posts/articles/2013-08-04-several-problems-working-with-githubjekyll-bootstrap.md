@@ -8,11 +8,12 @@ comments: true
 share: true
 ---
 
-##Declaration
-Github Pages really helps me a lot with this blog. It relieves me of so much trouble struggling with 
+## Declaration
+
+Github Pages really helps me a lot with this blog. It relieves me of so much trouble struggling with
 html, css etc. Despite of all benefits, it also strikes some know-nothing-about-jekyll-and-html guys like me.
 
-During the period of setting up and using the blog, I've encountered several problems which give me 
+During the period of setting up and using the blog, I've encountered several problems which give me
 headache. Some of the problems are solved while others remain. This post aims to record them lest someone met the same
 problems as me.
 
@@ -24,7 +25,7 @@ Yep, the first thing that bugs me. Due to build failure, blog won't update. This
 my posts and pages. Actually, github will email if such thing happens(I didn't realize this until a day after the problem),
 just keep an eye on your email.
 
-The best way to avoid this is to build your blog locally before you deploy it to github. Ruby + Jekyll will do, make sure to 
+The best way to avoid this is to build your blog locally before you deploy it to github. Ruby + Jekyll will do, make sure to
 fix all the problems.
 
 #### 2. github images won't show  

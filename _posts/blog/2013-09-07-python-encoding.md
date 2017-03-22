@@ -8,21 +8,23 @@ comments: true
 share: true
 ---
 
-###似曾相识？
+### 似曾相识？
+
 如果你经常使用Python的话，对下面这种情况应该很熟悉：
 
     UnicodeDecodeError: 'ascii' codec can't decode byte 0xef in position 1: ordinal not in range(128)
 
 你当然知道这是编码错误，也能根据提醒知道默认的`ASCII`码无法解析这里的数据，但是却不知道到底为什么会出现这种情况，并且应该怎么解决。那么这篇文章就是为你而准备的，请继续往下读。
 
-###认识编码
+### 认识编码
+
 计算机为什么需要编码呢？因为：**计算机内存储的都是0和1构成的字串。** 计算机无法认识文字、图像、视频等任何人类看起来很容易的东西，它只理解0和1。这样，我们就需要把上述的内容转化成计算机能理解的东西，这就是编码的过程。
 
 其实早在计算机出现以前，编码就已经无处不在了。结绳记事就是一种编码：把某个时间和事情用绳子的状态来变现；文字本身也是一种编码：把自然界的动物和名字一一对应；另外一个很著名而且和计算机相近的编码是`摩斯码`。
 
 > 摩斯码用两种符号来对字母和数字进行编码：点和线。它是一种变长的编码方式，一般来说，使用频率较高的字母的长度较小。需要注意的是：空格在摩斯码中非常重要，在字母与字母之间，单词和单词之间都用空格来分割。
 
-###几种重要的编码
+### 几种重要的编码
 
 + ASCII码
 
@@ -66,7 +68,8 @@ share: true
 
     ![UTF-8]
 
-###Python中的编码
+### Python中的编码
+
 扯了那么多，终于要讲python啦：这些编码在python是怎么实现的？会出现什么问题？python又是怎么解决的呢？
 
 python3.X对编码的改变很大，下面就先说说2.X版本的编码问题。（下面提到的python没有特殊说明均为2.X版本。）
@@ -81,7 +84,8 @@ python3.X对编码的改变很大，下面就先说说2.X版本的编码问题�
 
   怎么理解呢？因为计算机不能自动判断编码（它可以去猜，但是准确率不令人满意），必须人为地告诉它内容的编码方式。这样在刚使用文本内容的时候，就把它解码成unicode，然后在程序处理过程中一直如此，直到需要存储或者打印等的时候，才把unicode编码成需要的格式。这样的原则会减少很多不必要的错误！
 
-###参考资料
+### 参考资料
+
 - [ASCII，Unicode，UTF-8，GB2312一些关于编码的理解](http://space.itpub.net/23071790/viewspace-704585)
 - [字符编码笔记：ASCII，Unicode和UTF-8](http://www.ruanyifeng.com/blog/2007/10/ascii_unicode_and_utf-8.html)
 - [The Absolute Minimum Every Software Developer Absolutely, Positively Must Know About Unicode and Character Sets (No Excuses!)](http://www.joelonsoftware.com/articles/Unicode.html)
