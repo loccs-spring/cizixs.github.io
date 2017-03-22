@@ -1,9 +1,9 @@
 ---
 layout: post
-title: "tcpdump introduction"
-excerpt: "A basic usage introduction to tcpdump"
+title: "抓包神器 tcpdump 使用介绍"
+excerpt: "大部分的网络问题调试和定位都需要分析具体的数据报文，而这个时候都会用到 tcpdump 命令。"
 categories:  程序技术
-tags: [tcpdump, network, tcp/ip]
+tags: [tcpdump, network, linux]
 comments: true
 share: true
 ---
@@ -52,7 +52,7 @@ tcpdump 的选项也很多，要想知道所有选项的话，请参考 `man tcp
     ➜  ~  sudo tcpdump -nnvXSs 0 -c2 icmp
     tcpdump: data link type PKTAP
     tcpdump: listening on pktap, link-type PKTAP (Packet Tap), capture size 65535 bytes
-    
+
     22:58:16.781856 IP (tos 0x0, ttl 64, id 61452, offset 0, flags [none], proto ICMP (1), length 84)
         192.168.1.106 > 192.168.1.1: ICMP echo request, id 65302, seq 0, length 64
     	0x0000:  0c72 2c28 b9ac 80e6 5019 4c38 0800 4500  .r,(....P.L8..E.
@@ -71,7 +71,7 @@ tcpdump 的选项也很多，要想知道所有选项的话，请参考 `man tcp
     	0x0040:  1617 1819 1a1b 1c1d 1e1f 2021 2223 2425  ...........!"#$%
     	0x0050:  2627 2829 2a2b 2c2d 2e2f 3031 3233 3435  &'()*+,-./012345
     	0x0060:  3637                                     67
-    
+
     2 packets captured
     5875 packets received by filter
     0 packets dropped by kernel
@@ -93,7 +93,7 @@ tcpdump 的选项也很多，要想知道所有选项的话，请参考 `man tcp
     tcpdump src 2.3.4.5
     tcpdump dst 3.4.5.6
 
-#### net: 过滤某个网段的数据，[CIDR](http://en.wikipedia.org/wiki/Classless_Inter-Domain_Routing) 模式 
+#### net: 过滤某个网段的数据，[CIDR](http://en.wikipedia.org/wiki/Classless_Inter-Domain_Routing) 模式
     tcpdump net 1.2.3.0/24
 
 #### proto: 过滤某个协议的数据，支持 tcp, udp 和 icmp。使用的时候可以省略 proto 关键字。
@@ -144,30 +144,30 @@ tcpdump 的选项也很多，要想知道所有选项的话，请参考 `man tcp
 #### 从 192.168 网段到 10 或者 172.16 网段的数据报
 
     tcpdump -nvX src net 192.168.0.0/16 and dat net 10.0.0.0/8 or 172.16.0.0/16
-   
+
 #### 从 Mars 或者 Pluto 发出的数据报，并且目的端口不是 22
     tcpdump -vv src mars or pluto and not dat port 22
 
 从上面的例子就可以看出，你可以随意地组合之前的过滤器来截取自己期望的数据报，最重要的就是知道自己要精确匹配的数据室怎样的！
 
 对于比较复杂的过滤器表达式，为了逻辑的清晰，可以使用括号。不过默认情况下，tcpdump 把 `()` 当做特殊的字符，所以必须使用单引号 `'` 来消除歧义：
-    
+
     tcpdump -nvv -c 20 'src 10.0.2.4 and (dat port 3389 or 22)'
-    
+
 ### 理解 tcpdump 的输出
 截取数据只是第一步，第二步就是理解这些数据，下面就解释一下 tcpdump 命令输出各部分的意义。
 
     21:27:06.995846 IP (tos 0x0, ttl 64, id 45646, offset 0, flags [DF], proto TCP (6), length 64)
         192.168.1.106.56166 > 124.192.132.54.80: Flags [S], cksum 0xa730 (correct), seq 992042666, win 65535, options [mss 1460,nop,wscale 4,nop,nop,TS val 663433143 ecr 0,sackOK,eol], length 0
-    
+
     21:27:07.030487 IP (tos 0x0, ttl 51, id 0, offset 0, flags [DF], proto TCP (6), length 44)
         124.192.132.54.80 > 192.168.1.106.56166: Flags [S.], cksum 0xedc0 (correct), seq 2147006684, ack 992042667, win 14600, options [mss 1440], length 0
-    
+
     21:27:07.030527 IP (tos 0x0, ttl 64, id 59119, offset 0, flags [DF], proto TCP (6), length 40)
         192.168.1.106.56166 > 124.192.132.54.80: Flags [.], cksum 0x3e72 (correct), ack 2147006685, win 65535, length 0
-    
 
-   
+
+
 最基本也是最重要的信息就是数据报的源地址/端口和目的地址/端口，上面的例子第一条数据报中，源地址  ip 是 `192.168.1.106`，源端口是 `56166`，目的地址是 `124.192.132.54`，目的端口是 `80`。 `>` 符号代表数据的方向。
 
 此外，上面的三条数据还是 tcp 协议的三次握手过程，第一条就是 `SYN` 报文，这个可以通过 `Flags [S]` 看出。下面是常见的 TCP 报文的 Flags:
