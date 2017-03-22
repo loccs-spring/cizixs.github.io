@@ -186,7 +186,7 @@ Github 更进一步，提供了不影响当然 `RateLimit` 的请求查看当前
 
 ## 12. Hypermedia API
 
-Restful API 的设计最好遭到 Hypermedia：在返回结果中提供相关资源的链接。这种设计也被称为 [HATEOAS](http://en.wikipedia.org/wiki/HATEOAS)。这样做的好处是，用户可以根据返回结果就能得到后续操作需要访问的地址。
+Restful API 的设计最好做到 Hypermedia：在返回结果中提供相关资源的链接。这种设计也被称为 [HATEOAS](http://en.wikipedia.org/wiki/HATEOAS)。这样做的好处是，用户可以根据返回结果就能得到后续操作需要访问的地址。
 
 比如访问 [api.github.com](https://api.github.com/)，就可以看到 Github API 支持的资源操作。
 
