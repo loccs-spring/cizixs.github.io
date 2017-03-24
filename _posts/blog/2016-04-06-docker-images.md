@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "docker images 介绍"
+title: "docker 镜像介绍"
 excerpt: "docker 镜像是容器的基础，和镜像紧密相关的概念有 registry，UnionFS，container。深入了解 docker 中镜像的知识，对于更好地使用 docker 有着不可磨灭的作用。这篇文章，就围绕镜像有关的操作（下载、存储、运行、创建和删除等）展开，带你了解镜像的方方面面。"
 categories: blog
 tags: [docker, images, registry, UnionFS, aufs, container, Dockerfile]
@@ -63,7 +63,7 @@ docker client 组织配置和参数，把 pull 指令发送给 docker server，s
     + 在 TagStore 添加刚下载的镜像信息
 
 
-## 存储镜像：docker storage 介绍 
+## 存储镜像：docker storage 介绍
 
 在上一个章节提到下载的镜像会保存起来，这一节就讲讲到底是怎么存的。
 
@@ -94,16 +94,18 @@ NOTE：
 
 使用 docker history 查看镜像历史：
 
-    root@cizixs-ThinkPad-T450:~# docker images
-    REPOSITORY                TAG                 IMAGE ID            CREATED             VIRTUAL SIZE
-    172.16.1.41:5000/ubuntu   14.04               2d24f826cb16        13 months ago       188.3 MB
-    root@cizixs-ThinkPad-T450:~# docker history 2d24
-    IMAGE               CREATED              CREATED BY                                      SIZE
-    2d24f826cb16        13 months ago        /bin/sh -c #(nop) CMD [/bin/bash]               0 B
-    117ee323aaa9        13 months ago        /bin/sh -c sed -i 's/^#\s*\(deb.*universe\)$/   1.895 kB
-    1c8294cc5160        13 months ago        /bin/sh -c echo '#!/bin/sh' > /usr/sbin/polic   194.5 kB
-    fa4fd76b09ce        13 months ago        /bin/sh -c #(nop) ADD file:0018ff77d038472f52   188.1 MB
-    511136ea3c5a        2.811686 years ago                                                   0 B
+```
+root@cizixs-ThinkPad-T450:~# docker images
+REPOSITORY                TAG                 IMAGE ID            CREATED             VIRTUAL SIZE
+172.16.1.41:5000/ubuntu   14.04               2d24f826cb16        13 months ago       188.3 MB
+root@cizixs-ThinkPad-T450:~# docker history 2d24
+IMAGE               CREATED              CREATED BY                                      SIZE
+2d24f826cb16        13 months ago        /bin/sh -c #(nop) CMD [/bin/bash]               0 B
+117ee323aaa9        13 months ago        /bin/sh -c sed -i 's/^#\s*\(deb.*universe\)$/   1.895 kB
+1c8294cc5160        13 months ago        /bin/sh -c echo '#!/bin/sh' > /usr/sbin/polic   194.5 kB
+fa4fd76b09ce        13 months ago        /bin/sh -c #(nop) ADD file:0018ff77d038472f52   188.1 MB
+511136ea3c5a        2.811686 years ago                                                   0 B
+```
 
 可以看到，ubuntu:14.04 一共有五层镜像。aufs 数据存放在 /var/lib/docker/aufs 目录下：
 
@@ -216,8 +218,8 @@ NOTE：
 
 我们来看一个简单的 Dockerfile：
 
-    FROM ubuntu:14.04 
-    RUN apt-get update 
+    FROM ubuntu:14.04
+    RUN apt-get update
     ADD run.sh /  
     VOLUME /data  
     CMD ["./run.sh"]  
@@ -285,27 +287,29 @@ docker daemon 读到 `FROM` 命令的时候，会在本地查找对应的镜像�
 
 我们知道，在容器实际运行过程中，每个容器就是 docker daemon 的子进程：
 
-    root      3249  0.1  6.6 985212 33288 ?        Ssl  04:53   0:19 /usr/bin/docker daemon --insecure-registry 172.16.1.41:5000 --exec-opt native.cgroupdriver=cgroupfs --bip=10.12.240.1/20 --mtu=1500 --ip-masq=false
-    root      3597  0.0  0.1   3816   632 ?        Ssl  04:55   0:00  \_ /pause
-    root      3633  0.0  0.1   3816   504 ?        Ssl  04:55   0:00  \_ /pause
-    root      3695  0.0  0.1   3816   516 ?        Ssl  04:55   0:00  \_ /pause
-    root      3710  0.0  0.1   3816   528 ?        Ssl  04:55   0:00  \_ /pause
-    root      3745  0.0  0.1   3816   504 ?        Ssl  04:55   0:00  \_ /pause
-    polkitd   3793  0.0  0.2  36524  1280 ?        Ssl  04:55   0:07  \_ redis-server *:6379
-    root      3847  0.0  0.0   4184   184 ?        Ss   04:55   0:00  \_ /bin/sh -c /run.sh
-    root      3872  0.0  0.0  17668   360 ?        S    04:55   0:00  |   \_ /bin/bash /run.sh
-    root      3873  0.0  0.3  42824  1752 ?        Sl   04:55   0:01  |       \_ redis-server *:6379
-    root      3865  0.0  1.5 166256  8024 ?        Ss   04:55   0:00  \_ apache2 -DFOREGROUND
-    33        3881  0.0  1.0 166280  5140 ?        S    04:55   0:00  |   \_ apache2 -DFOREGROUND
-    33        3882  0.0  1.0 166280  5140 ?        S    04:55   0:00  |   \_ apache2 -DFOREGROUND
-    33        3883  0.0  1.0 166280  5140 ?        S    04:55   0:00  |   \_ apache2 -DFOREGROUND
-    33        3884  0.0  1.0 166280  5140 ?        S    04:55   0:00  |   \_ apache2 -DFOREGROUND
-    33        3885  0.0  1.0 166280  5140 ?        S    04:55   0:00  |   \_ apache2 -DFOREGROUND
-    root      3939  0.0  0.7  90264  4016 ?        Ss   04:55   0:00  \_ nginx: master process nginx
-    33        3947  0.0  0.3  90632  1660 ?        S    04:55   0:00      \_ nginx: worker process
-    33        3948  0.0  0.3  90632  1660 ?        S    04:55   0:00      \_ nginx: worker process
-    33        3949  0.0  0.3  90632  1660 ?        S    04:55   0:00      \_ nginx: worker process
-    33        3950  0.0  0.3  90632  1660 ?        S    04:55   0:00      \_ nginx: worker process
+```bash
+root      3249  0.1  6.6 985212 33288 ?        Ssl  04:53   0:19 /usr/bin/docker daemon --insecure-registry 172.16.1.41:5000 --exec-opt native.cgroupdriver=cgroupfs --bip=10.12.240.1/20 --mtu=1500 --ip-masq=false
+root      3597  0.0  0.1   3816   632 ?        Ssl  04:55   0:00  \_ /pause
+root      3633  0.0  0.1   3816   504 ?        Ssl  04:55   0:00  \_ /pause
+root      3695  0.0  0.1   3816   516 ?        Ssl  04:55   0:00  \_ /pause
+root      3710  0.0  0.1   3816   528 ?        Ssl  04:55   0:00  \_ /pause
+root      3745  0.0  0.1   3816   504 ?        Ssl  04:55   0:00  \_ /pause
+polkitd   3793  0.0  0.2  36524  1280 ?        Ssl  04:55   0:07  \_ redis-server *:6379
+root      3847  0.0  0.0   4184   184 ?        Ss   04:55   0:00  \_ /bin/sh -c /run.sh
+root      3872  0.0  0.0  17668   360 ?        S    04:55   0:00  |   \_ /bin/bash /run.sh
+root      3873  0.0  0.3  42824  1752 ?        Sl   04:55   0:01  |       \_ redis-server *:6379
+root      3865  0.0  1.5 166256  8024 ?        Ss   04:55   0:00  \_ apache2 -DFOREGROUND
+33        3881  0.0  1.0 166280  5140 ?        S    04:55   0:00  |   \_ apache2 -DFOREGROUND
+33        3882  0.0  1.0 166280  5140 ?        S    04:55   0:00  |   \_ apache2 -DFOREGROUND
+33        3883  0.0  1.0 166280  5140 ?        S    04:55   0:00  |   \_ apache2 -DFOREGROUND
+33        3884  0.0  1.0 166280  5140 ?        S    04:55   0:00  |   \_ apache2 -DFOREGROUND
+33        3885  0.0  1.0 166280  5140 ?        S    04:55   0:00  |   \_ apache2 -DFOREGROUND
+root      3939  0.0  0.7  90264  4016 ?        Ss   04:55   0:00  \_ nginx: master process nginx
+33        3947  0.0  0.3  90632  1660 ?        S    04:55   0:00      \_ nginx: worker process
+33        3948  0.0  0.3  90632  1660 ?        S    04:55   0:00      \_ nginx: worker process
+33        3949  0.0  0.3  90632  1660 ?        S    04:55   0:00      \_ nginx: worker process
+33        3950  0.0  0.3  90632  1660 ?        S    04:55   0:00      \_ nginx: worker process
+```
 
 也是说，docker daemon 会读取镜像的信息，作为容器的 rootfs，然后读取 json 文件中的动态信息作为运行时状态。
 
@@ -319,16 +323,16 @@ docker daemon 读到 `FROM` 命令的时候，会在本地查找对应的镜像�
     test1                     latest              fd484f19954f        23 seconds ago      7 B (virtual 4.964 MB)
     test                      latest              fd484f19954f        23 seconds ago      7 B (virtual 4.964 MB)
     test2                     latest              fd484f19954f        23 seconds ago      7 B (virtual 4.964 MB)
-    
+
     $ docker rmi fd484f19954f
     Error: Conflict, cannot delete image fd484f19954f because it is tagged in multiple repositories, use -f to force
     2013/12/11 05:47:16 Error: failed to remove one or more images
-    
+
     $ docker rmi test1
     Untagged: test1:latest
     $ docker rmi test2
     Untagged: test2:latest
-    
+
     $ docker images
     REPOSITORY                TAG                 IMAGE ID            CREATED             SIZE
     test                      latest              fd484f19954f        23 seconds ago      7 B (virtual 4.964 MB)
@@ -356,11 +360,3 @@ docker daemon 读到 `FROM` 命令的时候，会在本地查找对应的镜像�
 + [docker official document on image and container](https://docs.docker.com/engine/userguide/storagedriver/imagesandcontainers/)
 + [Docker and aufs in practice](https://docs.docker.com/engine/userguide/storagedriver/aufs-driver/)
 + [Docker 1.10 Release Candidate Now Available](https://blog.docker.com/2016/01/docker-1-10-rc/)
-
-
-
-
-
-
-
-

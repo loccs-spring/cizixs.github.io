@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "HTTP 代理原理和 golang 实现"
+title: "HTTP 代理原理和实现"
 excerpt: "代理的核心功能可以用一句话概括：接受客户端的请求，转发到后端服务器，获得应答之后返回给客户端。"
 categories: blog
 tags: [ http proxy golang ]

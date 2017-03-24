@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "http 隧道代理原理和实现"
+title: "HTTP 隧道代理原理和实现"
 excerpt: "HTTP 隧道代理可以支持 HTTPS 报文的转发，事实上任何 TCP 协议的报文都很通过 HTTP 隧道代理转发。"
 categories: blog
 tags: [ http proxy golang tunnel]
