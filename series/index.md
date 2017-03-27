@@ -22,6 +22,7 @@ search_omit: true
 - [Kubernetes 简介：kubelet](http://cizixs.com/2016/10/25/kubernetes-intro-kubelet)
 - [Kubernetes 简介：API Server](http://cizixs.com/2016/11/07/kubernetes-intro-api-server)
 - [Kubernetes 简介：调度器](http://cizixs.com/2017/03/10/kubernetes-intro-scheduler)
+- [kubernetes 简介：controller manager](http://cizixs.com/2017/03/27/kubernetes-introduction-controller-manager)
 
 ## HTTP
 
