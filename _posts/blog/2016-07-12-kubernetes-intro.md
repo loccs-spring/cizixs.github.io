@@ -1,9 +1,9 @@
 ---
 layout: post
-title: "kubernetes 简介：kubernetes 结构介绍"
+title: "kubernetes 简介：kubernetes 架构介绍"
 excerpt: "kubernetes 是谷歌开源的一套容器管理平台，这篇文章介绍它的整体架构，包括概念和组件。"
 categories: blog
-tags: [kubernetes, container, etcd]
+tags: [kubernetes, container, etcd, architecture]
 comments: true
 share: true
 ---

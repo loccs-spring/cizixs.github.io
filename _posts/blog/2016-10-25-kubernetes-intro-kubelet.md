@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "kubernetes 简介： kubelet 组件功能 "
+title: "kubernetes 简介： kubelet 和 pod"
 excerpt: "kubelet 是 kubernetes 中的 worker 组件，负责在各个节点上收集信息和执行任务。"
 categories: blog
 tags: [docker container kubernetes kubelet]

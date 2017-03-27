@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "kubernetes 简介：调度器"
+title: "kubernetes 简介：调度器和调度算法"
 excerpt: "scheduler 是 kubernetes 的调度器，主要的任务是把定义的 pod 分配到集群的节点上。听起来非常简单，但有很多要考虑的问题。"
 categories: blog
 tags: [kubernetes container scheduler]

@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "kubernetes 简介：API Server 简介"
+title: "kubernetes 简介：API Server 和 node"
 excerpt: "API Server 是 kubernetes 集群通信的核心组件，对外提供 HTTP API 以实现集群的沟通和管理"
 categories: blog
 tags: [docker container kubernetes http]

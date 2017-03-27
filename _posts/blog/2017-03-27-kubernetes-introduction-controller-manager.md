@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "kubernetes 简介：controller manager"
+title: "kubernetes 简介：controller manager 和自动扩容"
 excerpt: "kubernetes 提供了一个非常重要的特性，它能保证某个 pod 一定会有特定数量的副本在运行，这个功能是 controller manager 实现的。"
 categories: blog
 tags: [ kubernetes, container, ]
