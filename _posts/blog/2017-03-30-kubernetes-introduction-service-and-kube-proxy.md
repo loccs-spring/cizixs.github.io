@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "kubernetes 简介：kube-proxy 和 service"
+title: "kubernetes 简介：service 和 kube-proxy 原理"
 excerpt: "每个服务都一个固定的虚拟 ip，自动并且动态地绑定后面的 pod，所有的网络请求直接访问服务 ip，服务会自动向后端做转发。"
 categories: blog
 tags: [ kubernetes, container, network, load_balance, service]
