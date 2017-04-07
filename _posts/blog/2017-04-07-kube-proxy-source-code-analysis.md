@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "kubernetes 简介：service 和 kube-proxy 原理"
+title: "kube-proxy 源码解析"
 excerpt: "`kube-proxy` 运行在 kubernetes 集群中每个 worker 节点上，负责实现 service 这个概念提供的功能。`kube-proxy` 会把访问 service VIP 的请求转发到运行的 pods 上，实现负载均衡。"
 categories: blog
 tags: [ kubernetes, container, network, golang, kube-proxy, iptables]
