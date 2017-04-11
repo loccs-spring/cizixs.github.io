@@ -24,6 +24,7 @@ search_omit: true
 - [Kubernetes 简介：调度器](http://cizixs.com/2017/03/10/kubernetes-intro-scheduler)
 - [kubernetes 简介：controller manager 和 replication controller](http://cizixs.com/2017/03/27/kubernetes-introduction-controller-manager)
 - [kubernetes 简介：kube-proxy 和 service](http://cizixs.com/2017/03/30/kubernetes-introduction-service-and-kube-proxy)
+- [kubernetes 简介：kube-dns 和服务发现](http://cizixs.com/2017/04/11/kubernetes-intro-kube-dns)
 
 ## HTTP
 
