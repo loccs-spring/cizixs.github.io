@@ -385,7 +385,7 @@ application = DispatcherMiddleware(frontend, {
 
 ## Update： 为什么要用 LocalProxy
 
-写完这篇文章之后，收到有位读者的疑问：为什么要使用 `LocalProxy`？不适用 `LocalProxy` 直接访问 `LocalStack` 的对象会有什么问题吗？
+写完这篇文章之后，收到有位读者的疑问：为什么要使用 `LocalProxy`？不使用 `LocalProxy` 直接访问 `LocalStack` 的对象会有什么问题吗？
 
 这是个很好的问题，上面也确实没有很明确地给出这个答案。这里解释一下！
 
