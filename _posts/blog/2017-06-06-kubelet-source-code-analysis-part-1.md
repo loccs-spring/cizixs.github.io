@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "kubelet 分析源码：启动流程"
+title: "kubelet 源码分析：启动流程"
 excerpt: "kubelet 的核心工作是监听 apiserver，一旦发现当前节点的 pod 配置发生变化，就根据最新的配置执行响应的动作，保证运行的 pod 状态和期望的一致。这篇文章开始分析  kubelet 的源代码。"
 categories: blog
 tags: [kubernetes, kubelet, container, golang]
