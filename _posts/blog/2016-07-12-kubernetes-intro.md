@@ -74,7 +74,7 @@ labels 就是标签的意思，主要用于过滤 pod、service 或者 replicati
 
 kubernetes 整体上的框架是下面这样的，由多个不同的部分组成，下面将逐个讲解这些部分的功能。
 
-![](https://github.com/kubernetes/kubernetes/blob/master/docs/design/architecture.png)
+![](https://blog.jetstack.io/images/k8s/architecture-small.png)
 
 ### kubectl
 
