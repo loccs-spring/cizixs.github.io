@@ -498,7 +498,7 @@ func (proxier *Proxier) SyncLoop() {
 }
 ```
 
-这是一个周期性的任务，每隔  `proxier.syncPeriod` 的时间周期（默认是 15min，可以通过启动参数配置）就会调用 `proxier.syncProxyRules()` 对 iptables 进行更新。
+这是一个周期性的任务，每隔  `proxier.syncPeriod` 的时间周期（默认是 30s，可以通过启动参数 `--iptables-sync-period` 配置）就会调用 `proxier.syncProxyRules()` 对 iptables 进行更新。
 
 这里有个疑问：既然 `kube-proxy` 能够自动监听 apiserver 的变化，并更新 iptables，为什么这里还要再每隔一段时间强制同步一次呢？我的看法是这只是安全防护措施，来规避有些情况（比如代码 bug，或者网络、环境问题等原因）下数据可能没有及时同步。
 
