@@ -14,7 +14,8 @@ excerpt: "Cizixs, a simple human being."
 - [github](http://github.com/cizixs)
 - [微博](https://weibo.com/u/1921727853)
 - [知乎](https://www.zhihu.com/people/cizixs)
-- [stackoverflow](https://stackoverflow.com/users/1925083/cizixs)
+- [Stackoverflow](https://stackoverflow.com/users/1925083/cizixs)
+- [Twitter](https://twitter.com/cizixs)
 - 邮箱：cizixs@163.com
 
 如果需要转载博客中文章，请注明出处！
