@@ -260,3 +260,4 @@ $ go test -bench . -cpuprofile=cpu.prof
 - [The Go Blog: Profiling Go Programs](https://blog.golang.org/profiling-go-programs)
 - [go command tutorial: go tool pprof   ](https://github.com/hyper0x/go_command_tutorial/blob/master/0.12.md)
 - [Profiling and optimizing Go web applications](http://artem.krylysov.com/blog/2017/03/13/profiling-and-optimizing-go-web-applications/)
+- [Debugging performance issues in Go programs](https://software.intel.com/en-us/blogs/2014/05/10/debugging-performance-issues-in-go-programs)
