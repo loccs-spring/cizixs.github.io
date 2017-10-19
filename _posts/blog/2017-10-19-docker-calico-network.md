@@ -8,12 +8,6 @@ comments: true
 share: true
 ---
 
-# docker 网络之 calico 网络模型
-
-标签（空格分隔）： docker network container calico bgp
-
----
-
 ## calico 简介
 
 calico 是容器网络的又一种解决方案，和其他虚拟网络最大的不同是，它没有采用 overlay 网络做报文的转发，提供了纯 3 层的网络模型。三层通信模型表示每个容器都通过 IP 直接通信，中间通过路由转发找到对方。在这个过程中，容器所在的节点类似于传统的路由器，提供了路由查找的功能。
