@@ -57,7 +57,7 @@ def hello_world():
 
 ## flask 响应（response）
 
-在 [flask 源码解析：应用启动流程](http://cizixs.com/2017/01/11/flask-insight-start-process) 的最后，我们讲到 `full_dsipatch_request` 在调用路由到视图函数之后，会调用 `finalize_request` 进行最后的处理，在这个方法里就包含了 response 对象的生成和处理逻辑。
+在 [flask 源码解析：应用启动流程](http://cizixs.com/2017/01/11/flask-insight-start-process) 的最后，我们讲到 `full_dispatch_request` 在调用路由的视图函数之后，会调用 `finalize_request` 进行最后的处理，在这个方法里就包含了 response 对象的生成和处理逻辑。
 
 `finalize_request` 的代码如下：
 
