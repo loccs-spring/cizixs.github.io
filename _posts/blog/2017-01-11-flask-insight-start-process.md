@@ -91,8 +91,8 @@ def execute(app):
             write(b'')
     finally:
         if hasattr(application_iter, 'close'):
-        application_iter.close()
-        application_iter = None
+            application_iter.close()
+            application_iter = None
 ```
 
 可以看到 `application_iter = app(environ, start_response)` 就是调用代码获取结果的地方。
