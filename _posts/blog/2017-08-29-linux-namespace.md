@@ -52,9 +52,9 @@ User     |   CLONE_NEWUSER  |   User and group IDs (started in Linux 2.6.23 and 
 UTS      |   CLONE_NEWUTS    |  Hostname and NIS domain name (since Linux 2.6.19)
 Cgroup  |    CLONE_NEWCGROUP |  Cgroup root directory (since Linux 4.6)
 
-这些 namespace 基本上覆盖了一个程序运行所需的环境，保证运行在的隔离的 namespace 中的，会让程序，不会受到其他收到 namespace 程序的干扰。但不是所有的系统资源都能隔离，时间就是个例外，没有对应的 namespace，因此同一台 Linux 启动的容器时间都是相同的。
+这些 namespace 基本上覆盖了一个程序运行所需的环境，保证运行在的隔离的 namespace 中的，会让程序不会受到其他收到 namespace 程序的干扰。但不是所有的系统资源都能隔离，时间就是个例外，没有对应的 namespace，因此同一台 Linux 启动的容器时间都是相同的。
 
-我们会用接下来的内容解析解释每个 namespace 的含义和用法。
+我们会用接下来的内容解释每个 namespace 的含义和用法。
 
 **NOTE:** Cgroup namespace 比较新，还没有大量使用，比如 docker(v1.13.0) 目前就没有用到。
 
