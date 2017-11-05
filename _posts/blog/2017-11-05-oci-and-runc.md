@@ -671,7 +671,7 @@ if err := syscall.Exec(name, l.config.Args[0:], os.Environ()); err != nil {
 
 至此，容器的所有内容都 ok，而且容器里的用户进程也启动了。
 
-![](https://ws2.sinaimg.cn/large/006tNc79gy1fl7l940238j31kw13wte3.jpg)
+![](https://ws1.sinaimg.cn/large/006tNc79gy1fl7mqae7ylj31kw138tn7.jpg)
 
 runc 的代码调用关系如上图所示，可以在新页面打开查看大图。主要逻辑分成三块：
 
