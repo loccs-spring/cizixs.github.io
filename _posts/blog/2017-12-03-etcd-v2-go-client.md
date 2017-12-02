@@ -1,7 +1,7 @@
 ---
 layout: post
 title: "etcd go 语言 v2 客户端开发接受"
-excerpt: "很久之前写过一篇 etcd 的介绍文章，主要是讲 etcd 的概念和使用方式，这篇文章介绍如何使用 go 语言进行 etcd 的开发工作。
+excerpt: "很久之前写过一篇 etcd 的介绍文章，主要是讲 etcd 的概念和使用方式，这篇文章介绍如何使用 go 语言进行 etcd 的开发工作。"
 categories: blog
 tags: [etcd, go]
 comments: true
