@@ -1,7 +1,7 @@
 ---
 layout: post
 title: "CNCF 云原生容器生态系统概要"
-excerpt: "CNCF（Cloud Native Compute Foundation） 是 Linux 基金会旗下的一个组织，旨在推动以容器为中心的云原生系统。从 2016 年 11 月，CNCF 开始维护了一个 [Cloud Native Landscape](https://github.com/cncf/landscape) 的 repo，汇总目前比较流行的云原生技术，并加以分类，希望能为企业构建云原生体系提供参考。"
+excerpt: "CNCF（Cloud Native Compute Foundation） 是 Linux 基金会旗下的一个组织，旨在推动以容器为中心的云原生系统。从 2016 年 11 月，CNCF 开始维护了一个 Cloud Native Landscape 的 repo，汇总目前比较流行的云原生技术，并加以分类，希望能为企业构建云原生体系提供参考。"
 categories: blog
 tags: [container, cncf, ecosystem, landscape]
 comments: true
