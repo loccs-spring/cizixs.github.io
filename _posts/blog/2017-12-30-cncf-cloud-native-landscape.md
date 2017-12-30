@@ -56,7 +56,7 @@ CNCF（Cloud Native Compute Foundation） 是 Linux 基金会旗下的一个组�
 - `saltstack` 采用 zeroMQ 作为消息队列，实现 master-salve 模式，兼具性能和灵活性，但同时整个系统也更加复杂
 - `puppet` 是这个领域的老大哥，以成熟稳定著称，社区文档也更丰富
 
-[这篇博客](https://www.zhihu.com/question/53005641) 和[这篇文章](https://www.upguard.com/articles/the-7-configuration-management-tools-you-need-to-know)比较了 CFEngine vs Puppet vs Chef vs Ansible vs Salt 这几个工具的异同，如果纠结如何选型，推荐阅读。
+[这篇博客](https://www.intigua.com/blog/puppet-vs.-chef-vs.-ansible-vs.-saltstack) 和[这篇文章](https://www.upguard.com/articles/the-7-configuration-management-tools-you-need-to-know)比较了 CFEngine vs Puppet vs Chef vs Ansible vs Salt 这几个工具的异同，如果纠结如何选型，推荐阅读。
 
 其实，对于大多数需求，根据开发语言、配置文件风格等选择其中一种就行。
 
